@@ -9,27 +9,31 @@
         android:background = "@color/black"
         tools:context = ".MainActivity">
     <TextView
-            android:layout_width = "166dp"
-            android:layout_height = "29dp"
+            android:layout_width = "168dp"
+            android:layout_height = "42dp"
             android:text = "(device not found)"
-            android:id = "@+id/andromidi_txtvw"
+            android:id = "@+id/midi_device_txtvw"
             app:layout_constraintBottom_toBottomOf = "parent"
             app:layout_constraintStart_toStartOf = "parent"
             app:layout_constraintEnd_toEndOf = "parent"
             app:layout_constraintTop_toTopOf = "parent"
             app:layout_constraintHorizontal_bias = "0.065"
-            app:layout_constraintVertical_bias = "0.968"/>
+            app:layout_constraintVertical_bias = "0.968"
+            android:textColor = "@android:color/holo_purple"/>
     <TextView
             android:layout_width = "166dp"
             android:layout_height = "29dp"
-            android:text = "Andromidi v7"
-            android:id = "@+id/andromidi_txtvw2"
+            android:text = "Andromidi v9"
+            android:textAlignment = "textEnd"
+            android:id = "@+id/andromidi_version_txtvw"
             app:layout_constraintBottom_toBottomOf = "parent"
             app:layout_constraintStart_toStartOf = "parent"
             app:layout_constraintEnd_toEndOf = "parent"
             app:layout_constraintTop_toTopOf = "parent"
             app:layout_constraintHorizontal_bias = "0.934"
-            app:layout_constraintVertical_bias = "0.968"/><ImageButton
+            app:layout_constraintVertical_bias = "0.968"
+            android:textColor = "@android:color/holo_orange_light"/>
+    <ImageButton
             android:layout_width = "75dp"
             android:layout_height = "75dp"
             app:srcCompat = "@mipmap/delete_loop"

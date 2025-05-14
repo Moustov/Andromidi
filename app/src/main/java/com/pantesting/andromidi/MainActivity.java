@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private Boolean is_looper_menu_activated;
     private Boolean is_drum_menu_activated;
     private Boolean is_looper_play_activated;
-    private TextView andromidi_txtvw;
+    private TextView midi_device_txtvw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        this.andromidi_txtvw = findViewById(R.id.andromidi_txtvw);
+        this.midi_device_txtvw = findViewById(R.id.midi_device_txtvw);
         this.looper_imgbtn = findViewById(R.id.looper_imgbtn);
         this.looper_play_imgbtn = findViewById(R.id.play_loop_imgbtn);
         this.drum_imgbtn = findViewById(R.id.drum_imgbtn);
@@ -42,19 +42,19 @@ public class MainActivity extends AppCompatActivity {
         this.is_looper_play_activated = false;
         this.device = new MatriboxIIPro(this.getBaseContext());
         this.device.connectToMatribox();
-        this.andromidi_txtvw.setText(this.device.manufacturer + " " + this.device.product);
+        this.midi_device_txtvw.setText(this.device.manufacturer + " " + this.device.product);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        andromidi_txtvw.setOnClickListener(new View.OnClickListener() {
+        midi_device_txtvw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 device = new MatriboxIIPro(getBaseContext());
                 device.connectToMatribox();
-                andromidi_txtvw.setText(device.manufacturer + " " + device.product);
+                midi_device_txtvw.setText(device.manufacturer + " " + device.product);
             }
         });
 
