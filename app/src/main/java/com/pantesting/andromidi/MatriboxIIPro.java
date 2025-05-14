@@ -36,12 +36,12 @@ public class MatriboxIIPro extends Midi{
 
             String name = manufacturer + " " + product;
             // Vérifie si le nom du device contient "Matribox"
-//            if (name.toLowerCase().contains("MIDI")) {
-                this.manufacturer = manufacturer;
-                this.product = product;
-                this.connectToMidiDevice(info); // Ta méthode existante
-//                break; // On s'arrête après la première correspondance
-//            }
+            this.manufacturer = manufacturer;
+            this.product = product;
+            this.connectToMidiDevice(info); // Ta méthode existante
+            if (name.toLowerCase().contains("matribox")) {
+                break; // On s'arrête après la première correspondance
+            }
         }
     }
 
