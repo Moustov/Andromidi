@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android = "http://schemas.android.com/apk/res/android"
+        xmlns:tools = "http://schemas.android.com/tools"
+        xmlns:app = "http://schemas.android.com/apk/res-auto"
+        android:id = "@+id/main"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:background = "@color/black"
+        tools:context = ".MainActivity">
+    <TextView
+            android:layout_width = "166dp"
+            android:layout_height = "29dp"
+            android:text = "(device not found)"
+            android:id = "@+id/andromidi_txtvw"
+            app:layout_constraintBottom_toBottomOf = "parent"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintEnd_toEndOf = "parent"
+            app:layout_constraintTop_toTopOf = "parent"
+            app:layout_constraintHorizontal_bias = "0.065"
+            app:layout_constraintVertical_bias = "0.968"/>
+    <TextView
+            android:layout_width = "166dp"
+            android:layout_height = "29dp"
+            android:text = "Andromidi v7"
+            android:id = "@+id/andromidi_txtvw2"
+            app:layout_constraintBottom_toBottomOf = "parent"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintEnd_toEndOf = "parent"
+            app:layout_constraintTop_toTopOf = "parent"
+            app:layout_constraintHorizontal_bias = "0.934"
+            app:layout_constraintVertical_bias = "0.968"/><ImageButton
+            android:layout_width = "75dp"
+            android:layout_height = "75dp"
+            app:srcCompat = "@mipmap/delete_loop"
+            android:id = "@+id/del_loop_imgbtn"
+            android:contentDescription = "deletes a loop"
+            app:layout_constraintTop_toTopOf = "parent"
+            android:layout_marginTop = "16dp"
+            android:layout_marginEnd = "15dp"
+            app:layout_constraintEnd_toEndOf = "parent"/>
+    <ImageButton
+            android:layout_width = "75dp"
+            android:layout_height = "75dp"
+            app:srcCompat = "@mipmap/tap"
+            android:id = "@+id/tap_imgbtn"
+            android:contentDescription = "defines a beat by tapping"
+            app:layout_constraintTop_toBottomOf = "@+id/play_loop_imgbtn"
+            app:layout_constraintStart_toEndOf = "@+id/drum_imgbtn"
+            app:layout_constraintHorizontal_bias = "0.5"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintEnd_toEndOf = "parent"/>
+    <ImageButton
+            android:layout_width = "75dp"
+            android:layout_height = "75dp"
+            app:srcCompat = "@mipmap/play_drum"
+            android:id = "@+id/play_drum_imgbtn"
+            android:contentDescription = "plays the beat"
+            app:layout_constraintTop_toBottomOf = "@+id/del_loop_imgbtn"
+            android:layout_marginEnd = "16dp"
+            app:layout_constraintEnd_toEndOf = "parent"
+            android:background = "@color/white"/>
+    <ImageButton
+            android:layout_width = "75dp"
+            android:layout_height = "75dp"
+            app:srcCompat = "@mipmap/play_loop"
+            android:id = "@+id/play_loop_imgbtn"
+            app:layout_constraintStart_toEndOf = "@+id/looper_imgbtn"
+            android:contentDescription = "plays the loop"
+            app:layout_constraintHorizontal_bias = "0.5"
+            app:layout_constraintTop_toTopOf = "parent"
+            android:layout_marginTop = "16dp"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintEnd_toEndOf = "parent"/>
+    <ImageButton
+            android:layout_width = "75dp"
+            android:layout_height = "75dp"
+            app:srcCompat = "@mipmap/drum"
+            android:id = "@+id/drum_imgbtn"
+            android:contentDescription = "reaches the drum menu"
+            app:layout_constraintTop_toBottomOf = "@+id/looper_imgbtn"
+            app:layout_constraintStart_toStartOf = "parent"
+            android:layout_marginStart = "16dp"
+            android:background = "@color/white"/>
+    <ImageButton
+            android:layout_width = "75dp"
+            android:layout_height = "75dp"
+            app:srcCompat = "@mipmap/looper"
+            android:id = "@+id/looper_imgbtn"
+            app:layout_constraintTop_toTopOf = "parent"
+            app:layout_constraintStart_toStartOf = "parent"
+            android:contentDescription = "reaches the loop menu"
+            android:layout_marginTop = "16dp"
+            android:layout_marginStart = "16dp"
+            android:background = "@color/white"
+            />
+    <ImageButton
+            android:layout_width = "75dp"
+            android:layout_height = "75dp"
+            app:srcCompat = "@mipmap/preset"
+            android:id = "@+id/prev_preset_imgbtn"
+            app:layout_constraintStart_toStartOf = "parent"
+            android:contentDescription = "sets the previous effect"
+            android:layout_marginStart = "16dp"
+            app:layout_constraintTop_toBottomOf = "@+id/drum_imgbtn"
+            />
+    <TextView
+            android:text = "prev"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:id = "@+id/prev"
+            app:layout_constraintTop_toBottomOf = "@+id/prev_preset_imgbtn"
+            app:layout_constraintStart_toStartOf = "parent"
+            android:layout_marginStart = "16dp"/>
+    <ImageButton
+            android:layout_width = "75dp"
+            android:layout_height = "75dp"
+            app:srcCompat = "@mipmap/preset"
+            android:contentDescription = "sets the next effect"
+            android:id = "@+id/next_preset_imgbtn"
+            app:layout_constraintTop_toBottomOf = "@+id/play_drum_imgbtn"
+            android:layout_marginEnd = "16dp"
+            app:layout_constraintEnd_toEndOf = "parent"/>
+    <TextView
+            android:text = "next"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:id = "@+id/next"
+            app:layout_constraintTop_toBottomOf = "@+id/next_preset_imgbtn"
+            android:layout_marginEnd = "16dp"
+            app:layout_constraintEnd_toEndOf = "parent"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:id = "@+id/guideline"
+            android:orientation = "horizontal"
+            app:layout_constraintGuide_end = "893dp"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:id = "@+id/guideline2"
+            app:layout_constraintGuide_begin = "20dp"
+            android:orientation = "vertical"/>
+    <TextView
+            android:text = "knob1"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:id = "@+id/knob1"
+            app:layout_constraintTop_toBottomOf = "@+id/divider"
+            app:layout_constraintStart_toStartOf = "parent"
+            android:layout_marginStart = "16dp"/>
+    <SeekBar
+            android:layout_width = "362dp"
+            android:layout_height = "41dp"
+            android:id = "@+id/seekBar1"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@+id/knob1"
+            android:layout_marginStart = "16dp"
+            android:min = "0"
+            android:max = "100"
+            android:orientation = "horizontal"
+            android:progress = "0"
+            android:background = "@color/design_default_color_secondary"
+            app:layout_constraintHorizontal_bias = "0.5"
+            app:layout_constraintEnd_toEndOf = "parent"/>
+    <TextView
+            android:text = "knob2"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:id = "@+id/knob2"
+            app:layout_constraintTop_toBottomOf = "@+id/seekBar1"
+            app:layout_constraintStart_toStartOf = "parent"
+            android:layout_marginStart = "16dp"/>
+    <SeekBar
+            android:layout_width = "362dp"
+            android:layout_height = "41dp"
+            android:id = "@+id/seekBar2"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@+id/knob2"
+            android:layout_marginStart = "16dp"
+            android:min = "0"
+            android:max = "100"
+            android:orientation = "horizontal"
+            android:progress = "0"
+            android:background = "#CDDC39"
+            app:layout_constraintHorizontal_bias = "0.5"
+            app:layout_constraintEnd_toEndOf = "parent"
+            />
+    <TextView
+            android:text = "knob3"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:id = "@+id/knob3"
+            app:layout_constraintTop_toBottomOf = "@+id/seekBar2"
+            app:layout_constraintStart_toStartOf = "parent"
+            android:layout_marginStart = "16dp"
+            android:layout_marginEnd = "16dp"
+            />
+    <SeekBar
+            android:layout_width = "362dp"
+            android:layout_height = "41dp"
+            android:id = "@+id/seekBar3"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@+id/knob3"
+            android:layout_marginStart = "16dp"
+            android:min = "0"
+            android:max = "100"
+            android:orientation = "horizontal"
+            android:progress = "0"
+            app:layout_constraintHorizontal_bias = "0.5"
+            app:layout_constraintEnd_toEndOf = "parent"
+            android:background = "@color/material_dynamic_primary80"/>
+    <View
+            android:id = "@+id/divider"
+            android:layout_width = "364dp"
+            android:layout_height = "51dp"
+            android:background = "?android:attr/listDivider"
+            app:layout_constraintTop_toBottomOf = "@+id/next"
+            android:layout_marginHorizontal = "@dimen/cardview_compat_inset_shadow"
+            android:layout_marginTop = "8dp"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintHorizontal_bias = "0.5"
+            app:layout_constraintEnd_toEndOf = "parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
