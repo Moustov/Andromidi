@@ -18,7 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton looper_imgbtn;
     private ImageButton looper_play_imgbtn;
     private ImageButton drum_imgbtn;
-    private SeekBar seekBar1, seekBar2, seekBar3;
+    private ImageButton tap_imgbtn;
+    private SeekBar knob1_sb, knob2_sb, knob3_sb, volume_preset_sb;
     private Boolean is_looper_menu_activated;
     private Boolean is_drum_menu_activated;
     private Boolean is_looper_play_activated;
@@ -31,12 +32,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.midi_device_txtvw = findViewById(R.id.midi_device_txtvw);
+        this.tap_imgbtn = findViewById(R.id.tap_imgbtn);
         this.looper_imgbtn = findViewById(R.id.looper_imgbtn);
         this.looper_play_imgbtn = findViewById(R.id.play_loop_imgbtn);
         this.drum_imgbtn = findViewById(R.id.drum_imgbtn);
-        this.seekBar1 = findViewById(R.id.seekBar1);
-        this.seekBar2 = findViewById(R.id.seekBar2);
-        this.seekBar3 = findViewById(R.id.seekBar3);
+        this.knob1_sb = findViewById(R.id.seekBar1);
+        this.knob2_sb = findViewById(R.id.seekBar2);
+        this.knob3_sb = findViewById(R.id.seekBar3);
+        this.volume_preset_sb = findViewById(R.id.volume_preset);
         this.is_looper_menu_activated = false;
         this.is_drum_menu_activated = false;
         this.is_looper_play_activated = false;
@@ -48,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+        tap_imgbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                device.sendTap();
+            }
         });
         midi_device_txtvw.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        knob1_sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // Action à réaliser lorsque la valeur change
@@ -123,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 // Action à réaliser lorsque la valeur change
             }
         });
-        seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        knob2_sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // Action à réaliser lorsque la valeur change
@@ -136,11 +145,24 @@ public class MainActivity extends AppCompatActivity {
                 // Action à réaliser lorsque la valeur change
             }
         });
-        seekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        knob3_sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // Action à réaliser lorsque la valeur change
                 device.sendKnobValue(3, progress);
+            }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // Action à réaliser lorsque la valeur change
+            }
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // Action à réaliser lorsque la valeur change
+            }
+        });
+        volume_preset_sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // Action à réaliser lorsque la valeur change
+                device.sendPresetVolume(progress);
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
                 // Action à réaliser lorsque la valeur change

@@ -45,6 +45,10 @@ public class MatriboxIIPro extends Midi{
         }
     }
 
+    public void sendTap(){
+        this.sendControlChange(1, 70, 0);
+    }
+
     public void sendActivateLooperMenu(){
         this.sendControlChange(1, 59, 0);
     }
@@ -77,4 +81,13 @@ public class MatriboxIIPro extends Midi{
     public void sendKnobValue(int knob, int value){
         this.sendControlChange(1, 16 + (knob -1) * 2, value);
     }
+
+    /**
+     *updates the preset volume
+     * @param volume : 0..100
+     */
+    public void sendPresetVolume(int volume){
+        this.sendControlChange(1, 7, volume);
+    }
+
 }

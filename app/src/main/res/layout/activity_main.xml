@@ -8,6 +8,41 @@
         android:layout_height = "match_parent"
         android:background = "@color/black"
         tools:context = ".MainActivity">
+    <SeekBar
+            android:layout_width = "362dp"
+            android:layout_height = "41dp"
+            android:id = "@+id/volume_preset"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@+id/volume_preset_tv"
+            android:layout_marginStart = "16dp"
+            android:min = "0"
+            android:max = "100"
+            android:orientation = "horizontal"
+            android:progress = "0"
+            app:layout_constraintHorizontal_bias = "0.5"
+            app:layout_constraintEnd_toEndOf = "parent"
+            android:background = "@android:color/holo_orange_dark"
+            />
+    <TextView
+            android:text = "Volume preset"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:id = "@+id/volume_preset_tv"
+            app:layout_constraintTop_toBottomOf = "@+id/divider2"
+            app:layout_constraintStart_toStartOf = "parent"
+            android:layout_marginStart = "24dp"/>
+
+    <View
+            android:id = "@+id/divider2"
+            android:layout_width = "364dp"
+            android:layout_height = "51dp"
+            android:background = "?android:attr/listDivider"
+            app:layout_constraintTop_toBottomOf = "@+id/seekBar3"
+            android:layout_marginHorizontal = "@dimen/cardview_compat_inset_shadow"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintHorizontal_bias = "0.489"
+            app:layout_constraintEnd_toEndOf = "parent"
+            />
     <TextView
             android:layout_width = "168dp"
             android:layout_height = "42dp"
@@ -23,7 +58,7 @@
     <TextView
             android:layout_width = "166dp"
             android:layout_height = "29dp"
-            android:text = "Andromidi v11"
+            android:text = "Andromidi v13"
             android:textAlignment = "textEnd"
             android:id = "@+id/andromidi_version_txtvw"
             app:layout_constraintBottom_toBottomOf = "parent"
