@@ -69,12 +69,30 @@ public class MatriboxIIPro extends Midi {
         this.sendControlChange(1, 92, 0);
     }
 
-    public void sendLooperPlay() {
+    public void sendLooperPlay_On() {
         this.sendControlChange(1, 62, 127);
     }
 
     public void sendLooperPlay_Off() {
         this.sendControlChange(1, 62, 0);
+    }
+
+    /**
+     * /!\ the value does not comply with the user manual, but it works
+     */
+    public void sendDrumPlay_On() {
+        this.sendControlChange(1, 93, 0);
+    }
+
+    /**
+     * /!\ the value does not comply with the user manual, but it works
+     */
+    public void sendDrumPlay_Off() {
+        this.sendControlChange(1, 93, 127);
+    }
+
+    public void sendLoop_delete() {
+        this.sendControlChange(1, 64, 127);
     }
 
     /**

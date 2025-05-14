@@ -15,14 +15,14 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     private MatriboxIIPro device;
-    private ImageButton looper_imgbtn;
-    private ImageButton looper_play_imgbtn;
-    private ImageButton drum_imgbtn;
-    private ImageButton tap_imgbtn, prev_preset_imgbtn, next_preset_imgbtn;
+    private ImageButton looper_imgbtn, looper_play_imgbtn, del_loop_imgbtn;
+    private ImageButton drum_imgbtn, tap_imgbtn, play_drum_imgbtn;
+    private ImageButton prev_preset_imgbtn, next_preset_imgbtn;
     private SeekBar knob1_sb, knob2_sb, knob3_sb, volume_preset_sb;
     private Boolean is_looper_menu_activated;
     private Boolean is_drum_menu_activated;
     private Boolean is_looper_play_activated;
+    private Boolean is_drum_play_activated;
     private TextView midi_device_txtvw;
 
     @Override
@@ -36,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
         this.looper_imgbtn = findViewById(R.id.looper_imgbtn);
         this.looper_play_imgbtn = findViewById(R.id.play_loop_imgbtn);
         this.drum_imgbtn = findViewById(R.id.drum_imgbtn);
+        this.play_drum_imgbtn = findViewById(R.id.play_drum_imgbtn);
         this.prev_preset_imgbtn = findViewById(R.id.prev_preset_imgbtn);
         this.next_preset_imgbtn = findViewById(R.id.next_preset_imgbtn);
+        this.del_loop_imgbtn = findViewById(R.id.del_loop_imgbtn);
         this.knob1_sb = findViewById(R.id.seekBar1);
         this.knob2_sb = findViewById(R.id.seekBar2);
         this.knob3_sb = findViewById(R.id.seekBar3);
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         this.is_looper_menu_activated = false;
         this.is_drum_menu_activated = false;
         this.is_looper_play_activated = false;
+        this.is_drum_play_activated = false;
         this.device = new MatriboxIIPro(this.getBaseContext());
         this.device.connectToMatribox();
         this.midi_device_txtvw.setText(this.device.manufacturer + " " + this.device.product);
@@ -53,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+        del_loop_imgbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                device.sendLoop_delete();
+            }
         });
         prev_preset_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,16 +108,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        play_drum_imgbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (is_drum_play_activated) {
+                    device.sendDrumPlay_On();
+                    play_drum_imgbtn.setImageResource(R.drawable.drum_play_off);
+                    is_drum_play_activated = false;
+                }
+                else{
+                    device.sendDrumPlay_Off();
+                    play_drum_imgbtn.setImageResource(R.drawable.drum_play_on);
+                    is_drum_play_activated = true;
+                }
+            }
+        });
+
         looper_play_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (is_looper_play_activated) {
                     device.sendLooperPlay_Off();
-                    looper_play_imgbtn.setImageResource(R.drawable.looper_play);
+                    looper_play_imgbtn.setImageResource(R.drawable.looper_play_off);
                     is_looper_play_activated = false;
                 }
                 else{
-                    device.sendLooperPlay();
+                    device.sendLooperPlay_On();
                     looper_play_imgbtn.setImageResource(R.drawable.looper_play_on);
                     is_looper_play_activated = true;
                 }
