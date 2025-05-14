@@ -1,0 +1,62 @@
+{
+  "songs": [
+    {
+      "song": "piste 1",
+      "ctrl1": "BB Blues",
+      "ctrl2": "Funky Baby",
+      "ctrl3": "80's Lead",
+      "ctrl4": "Dreamspace"
+    },
+    {
+      "song": "piste 2",
+      "ctrl1": "BB Blues",
+      "ctrl2": "Funky Baby",
+      "ctrl3": "80's Lead",
+      "ctrl4": "Dreamspace"
+    },
+    {
+      "song": "piste 3",
+      "ctrl1": "BB Blues",
+      "ctrl2": "Funky Baby",
+      "ctrl3": "80's Lead",
+      "ctrl4": "Dreamspace"
+    },
+    {
+      "song": "piste 4",
+      "ctrl1": "BB Blues",
+      "ctrl2": "BB Blues",
+      "ctrl3": "BB Blues",
+      "ctrl4": "BB Blues"
+    }
+  ],
+  "effects": [
+    {
+      "effect_name": "Dreamspace",
+      "config": {
+        "pedal1": "DRV",
+        "params": []
+      }
+    },
+    {
+      "effect_name": "80's Lead",
+      "config": {
+        "pedal1": "DRV",
+        "params": []
+      }
+    },
+    {
+      "effect_name": "BB Blues",
+      "config": {
+        "pedal1": "DRV",
+        "params": []
+      }
+    },
+    {
+      "effect_name": "Funky Baby",
+      "config": {
+        "pedal1": "DRV",
+        "params": []
+      }
+    }
+  ]
+}

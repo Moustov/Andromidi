@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android = "http://schemas.android.com/apk/res/android"
+        xmlns:tools = "http://schemas.android.com/tools"
+        xmlns:app = "http://schemas.android.com/apk/res-auto"
+        android:id = "@+id/main"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        tools:context = ".SongsActivity"
+        android:background = "@color/black">
+    <ListView
+            android:layout_width = "363dp"
+            android:layout_height = "821dp"
+            app:layout_constraintStart_toStartOf = "parent"
+            android:layout_marginStart = "20dp"
+            android:layout_marginTop = "11dp"
+            android:id = "@+id/songs_lv"
+            app:layout_constraintTop_toBottomOf = "@+id/textView"/>
+    <TextView
+            android:text = "Songs"
+            android:layout_width = "359dp"
+            android:layout_height = "61dp"
+            app:layout_constraintTop_toTopOf = "parent"
+            android:id = "@+id/textView"
+            android:autoSizeTextType = "uniform"
+            android:textColor = "@color/design_default_color_secondary"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintHorizontal_bias = "0.5"
+            app:layout_constraintEnd_toEndOf = "parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

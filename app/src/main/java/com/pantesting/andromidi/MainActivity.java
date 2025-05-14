@@ -1,8 +1,10 @@
 package com.pantesting.andromidi;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     private MatriboxIIPro device;
+    private Button songs_btn;
     private ImageButton looper_imgbtn, looper_play_imgbtn, del_loop_imgbtn;
     private ImageButton drum_imgbtn, tap_imgbtn, play_drum_imgbtn;
     private ImageButton prev_preset_imgbtn, next_preset_imgbtn;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.midi_device_txtvw = findViewById(R.id.midi_device_txtvw);
         this.tap_imgbtn = findViewById(R.id.tap_imgbtn);
+        this.songs_btn = findViewById(R.id.songs_btn);
         this.looper_imgbtn = findViewById(R.id.looper_imgbtn);
         this.looper_play_imgbtn = findViewById(R.id.play_loop_imgbtn);
         this.drum_imgbtn = findViewById(R.id.drum_imgbtn);
@@ -56,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+        songs_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Créer une intention pour ouvrir la seconde activité
+                Intent intent = new Intent(MainActivity.this, SongsActivity.class);
+                startActivity(intent);
+            }
         });
         del_loop_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
