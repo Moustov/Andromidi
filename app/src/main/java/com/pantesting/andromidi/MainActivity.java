@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton looper_imgbtn;
     private ImageButton looper_play_imgbtn;
     private ImageButton drum_imgbtn;
-    private ImageButton tap_imgbtn, prev_preset_imgbtn;
+    private ImageButton tap_imgbtn, prev_preset_imgbtn, next_preset_imgbtn;
     private SeekBar knob1_sb, knob2_sb, knob3_sb, volume_preset_sb;
     private Boolean is_looper_menu_activated;
     private Boolean is_drum_menu_activated;
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         this.looper_play_imgbtn = findViewById(R.id.play_loop_imgbtn);
         this.drum_imgbtn = findViewById(R.id.drum_imgbtn);
         this.prev_preset_imgbtn = findViewById(R.id.prev_preset_imgbtn);
+        this.next_preset_imgbtn = findViewById(R.id.next_preset_imgbtn);
         this.knob1_sb = findViewById(R.id.seekBar1);
         this.knob2_sb = findViewById(R.id.seekBar2);
         this.knob3_sb = findViewById(R.id.seekBar3);
@@ -57,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 device.sendPresetSync_off();
+            }
+        });
+        next_preset_imgbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                device.sendPresetSync_on();
             }
         });
         tap_imgbtn.setOnClickListener(new View.OnClickListener() {

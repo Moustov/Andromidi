@@ -71,19 +71,24 @@ Knowing this, the sample provided above seems to embed a couple of extra data
 > 0050   00 00 00 04 00 00 00 04 00 00 01 04 01 00 00 07 <br>
 > 0060   00 00 **f7** <br>
 * according to the standard, the Matribox ID should be 0x21 (33) and the sub ID 0x25 (37)
-   > the decode_sysex() method provides a sequence that starts with `[0x21, 0x25, 0x4D, 0x50, 0x00, 0x00, ...]` (i.e. `[33, 37, 77, 80, 0, 0, ...]`) 
-* there are `0x04` values that are inserted at columns 3, 7, 11, 15 (counting from 0) 
-* since the mido lib expects values < 127, it means that headers (F0) and tails (F7) should not be included in messages
+   > the decode_sysex() method provides a sequence that starts with `[0x21, 0x25, 0x4D, 0x50, 0x00, 0x00, ...]` (i.e. `[33, 37, 77, 80, 0, 0, ...]`)
+   
+    It seems actually that every SysEx message send to the Matribox include always starts with the byte sequence `[0x21, 0x25, 0x4D, 0x50, ...]`
+* there are `0x04` values that are inserted at columns 3, 7, 11, 15 (counting from 0) - this means the dump is actually an event packet  
+ => the final dump in Wireshark "MIDI System Exclusive Command" should be retrieved
 
-### Attempts
-So far, this direction lead to nowhere since the sent messages don't have any effect (e.g. 
-`f0 21 25 04 4d 50 00 04 00 7b 00 04 14 00 00 04 00 00 01 04 00 00 00 04 00 01 01 04 00 0c 00 04 00 00 00 04 00 00 01 04 09 00 00 04 05 02 00 04 00 00 00 04 00 00 00 04 00 00 00 04 00 00 01 04 01 00 00 07 00 00 f7`
-is supposed to start the drum module but nothing happens with `send_sysex_message()`)
+> Here is a sample of pure MIDI System Exclusive Command dump :
+> ````
+> 0000   f0 21 25 4d 50 00 00 1a 00 14 00 00 00 00 01 00   .!%MP...........
+> 0010   00 00 00 01 01 00 0c 00 00 00 00 00 00 01 09 00   ................
+> 0020   00 08 05 00 00 00 00 00 01 00 00 00 00 00 00 01   ................
+> 0030   01 00 00 00 00 f7                                 ......
+> ````
 
 # Message Control Changes
 The user manual refers to a MIDI Control Information List.
 
-Instead of using SysEx messages, "control_change" message types will be involved
+Instead of using SysEx messages, "control_change" message types can be involved
 ````python
 import mido
 
