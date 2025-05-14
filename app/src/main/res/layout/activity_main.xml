@@ -58,7 +58,7 @@
     <TextView
             android:layout_width = "166dp"
             android:layout_height = "29dp"
-            android:text = "Andromidi v13"
+            android:text = "Andromidi 17"
             android:textAlignment = "textEnd"
             android:id = "@+id/andromidi_version_txtvw"
             app:layout_constraintBottom_toBottomOf = "parent"

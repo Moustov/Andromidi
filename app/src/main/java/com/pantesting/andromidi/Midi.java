@@ -1,6 +1,6 @@
 package com.pantesting.andromidi;
+import java.util.ArrayList;
 
-import java.nio.ByteBuffer;
 import android.content.Context;
 import android.media.midi.*;
 import android.os.Build;
@@ -67,10 +67,24 @@ public class Midi {
     }
 
     // Envoi d'un message SysEx (exemple : F0 7D 10 01 00 F7)
-    public void sendSysEx(byte[] data) {
+    public void sendSysEx(byte[] device, byte[] data) {
         if (inputPort != null) {
             try {
-                inputPort.send(data, 0, data.length);
+                ArrayList<Byte> arrayList = new ArrayList<>();
+                arrayList.add((byte) 0xf0);
+                for (byte b : device) {
+                    arrayList.add(b);
+                }
+                for (byte b : data) {
+                    arrayList.add(b);
+                }
+                arrayList.add((byte) 0xf7);
+                // Convertir l'ArrayList en tableau
+                byte[] newArray = new byte[arrayList.size()];
+                for (int i = 0; i < arrayList.size(); i++) {
+                    newArray[i] = arrayList.get(i);
+                }
+                inputPort.send(newArray, 0, newArray.length);
             } catch (IOException e) {
                 e.printStackTrace();
             }
