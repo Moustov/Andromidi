@@ -13,9 +13,10 @@
             android:layout_height = "821dp"
             app:layout_constraintStart_toStartOf = "parent"
             android:layout_marginStart = "20dp"
-            android:layout_marginTop = "11dp"
+            android:layout_marginTop = "16dp"
             android:id = "@+id/songs_lv"
-            app:layout_constraintTop_toBottomOf = "@+id/textView"/>
+            app:layout_constraintTop_toBottomOf = "@+id/textView"
+            tools:listitem = "@layout/item_layout"/>
     <TextView
             android:text = "Songs"
             android:layout_width = "359dp"

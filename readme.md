@@ -4,6 +4,8 @@ Matribox II Pro controller from Sonicake
 This project aims to drive the [Matribox II Pro by SONICAKE](https://www.sonicake.com/pages/matribox-ii-pro-software-firmware-1).
 
 # Background
+When scanning the USB messages with Wireshark, there are different values that can help you understanding 
+the USB API used by the software delivered by Sonicake to drive the Matribox. 
 
 ## SysEx
 You may use Matribox II Pro Software V1.0.0 for Windows.zip to drive
@@ -31,7 +33,29 @@ you will see SYSEX messages
 > 0060   00 00 f7
 > ````
 
-SysEx messages start with (hexadecimal) `F0` and end with `F7`.
+* SysEx messages start with (hexadecimal) `F0` 
+* then there are 1 to 3 bytes (`00` -> `7F` values) for the manufacturer ID
+* then X bytes (`00` -> `7F` values)
+* ends with `F7`
+ 
+## URB_BULK messages (USB Request Blocks)
+````
+//                                                                                                                                                                    v ID session USB (device address)
+//                                                                                                                                                                                  v IN
+//                                                                                                                                                                                        vv endpoint number
+//                                                                                                                                                                                v 10000011  endpoint
+//                                                                                                                                                                                           v URB
+//                        vvv  vvv size of the message (27 bytes)
+//                                    vv          vv    vv          vv          vv          vv          vv          vv 0xffff848289c1c010 : IRP ID
+//                                                                                                                                                     vv 0x0: IN  / 0x1: OUT
+//                                                                                                                                           v   URB Function: URB_FUNCTION_BULK_OR_INTERRUPT_TRANSFER (0x0009)
+//byte[] urb_bulk_in3 = {0x1b, 0x0, 0x10, (byte)0x90, 0x67, (byte)0xaf, (byte)0x82, (byte)0x84, (byte)0xff, (byte)0xff, 0x0, 0x0, 0x0, 0x0, 0x9, 0x0, 0x0, 0x2, 0x0, 0x16, 0x0, (byte)0x83, 0x3, 0x0, 0x0, 0x0, 0x0};
+````
+
+### URB Function: URB_FUNCTION_BULK_OR_INTERRUPT_TRANSFER (0x0009)
+> https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/usb/ns-usb-_urb_bulk_or_interrupt_transfer
+
+## Universal Real Time SysEx messages
 Universal Real Time SysEx messages start with `F0`, followed by `7F`, then include other fields before the terminating `F7`.
 
 The following shows Universal Real Time SysEx message format (all numbers hexadecimal):
@@ -106,3 +130,7 @@ This way, controls and values are the one found in the list found in the manual.
 * https://electronicmusic.fandom.com/wiki/System_exclusive
 * https://en.wikipedia.org/wiki/MIDI_Machine_Control
 * https://github.com/johnko/python-rtmidi/blob/master/examples/sendsysex.py
+* https://www.zem-college.de/midi/mc_scm1.htm
+* URB : 
+  * https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/usb/ns-usb-_urb
+  * https://www.linkedin.com/pulse/comprehensive-guide-usb-urbs-david-zhu-rcb0c/

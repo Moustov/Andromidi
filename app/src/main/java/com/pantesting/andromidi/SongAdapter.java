@@ -23,8 +23,12 @@ public class SongAdapter extends ArrayAdapter<Song> {
         }
 
         TextView textView = convertView.findViewById(android.R.id.text1);
-        textView.setText(song.getSong() + ": " + song.getCtrl1() + ", " + song.getCtrl2() + ", " + song.getCtrl3() + ", " + song.getCtrl4());
-
+        textView.setText(">>> " + song.getSong().toUpperCase()
+                + "\n     " + song.getCtrl1()
+                + "\n     " + song.getCtrl2()
+                + "\n     " + song.getCtrl3()
+                + "\n     " + song.getCtrl4());
+        textView.setTextColor(0xFFFFFFFF);
         return convertView;
     }
 }

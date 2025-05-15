@@ -78,13 +78,14 @@ public class MainActivity extends AppCompatActivity {
         prev_preset_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                device.sendPresetSync_off();
+                device.send59DBBBlues();
+//                device.sendPresetSync_off();
             }
         });
         next_preset_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                device.sendPresetSync_on();
+                device.send59ABBBlues();
             }
         });
         tap_imgbtn.setOnClickListener(new View.OnClickListener() {

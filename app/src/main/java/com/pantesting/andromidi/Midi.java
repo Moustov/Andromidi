@@ -58,9 +58,9 @@ public class Midi {
     }
 
     public int receiveControlChange(byte[] msg) {
-        int channel = msg[0] & 0x0F; // 4 bits de droite
-        int controller = msg[1] & 0x7F; // 7 bits de droite
-        int value = msg[2] & 0x7F; // 7 bits de droite
+        int channel = msg[0] & 0x0F; // 4 rightmost bits
+        int controller = msg[1] & 0x7F; // 7 rightmost bits
+        int value = msg[2] & 0x7F; // 7 rightmost bits
 
         String message = "Channel: " + channel + " / Controller: " + controller + " / Value: " + value;
         return value;
@@ -76,7 +76,8 @@ public class Midi {
                     arrayList.add(b);
                 }
                 for (byte b : data) {
-                    arrayList.add(b);
+                    if (((b & 0x80) != 0)) throw new AssertionError("A data will be sent over SySex with a value greater than 0x7F");        // if the MSB is ON
+                    arrayList.add((byte)(b & 0x7F));    // 7 rightmost bits
                 }
                 arrayList.add((byte) 0xf7);
                 // Convertir l'ArrayList en tableau
@@ -85,6 +86,17 @@ public class Midi {
                     newArray[i] = arrayList.get(i);
                 }
                 inputPort.send(newArray, 0, newArray.length);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void sendURB_BULK_in(byte[] data) {
+        if (this.inputPort != null) {
+            try {
+                // Ancienne méthode
+                this.inputPort.send(data, 0, data.length);
             } catch (IOException e) {
                 e.printStackTrace();
             }
