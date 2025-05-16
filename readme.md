@@ -7,6 +7,39 @@ This project aims to drive the [Matribox II Pro by SONICAKE](https://www.sonicak
 When scanning the USB messages with Wireshark, there are different values that can help you understanding 
 the USB API used by the software delivered by Sonicake to drive the Matribox. 
 
+
+## URB_BULK messages (USB Request Blocks)
+````
+//                                                                                                                                                                    v ID session USB (device address)
+//                                                                                                                                                                                  v IN
+//                                                                                                                                                                                        vv endpoint number
+//                                                                                                                                                                                v 10000011  endpoint
+//                                                                                                                                                                                           v URB
+//                        vvv  vvv size of the message (27 bytes)
+//                                    vv          vv    vv          vv          vv          vv          vv          vv 0xffff848289c1c010 : IRP ID
+//                                                                                                                                                     vv 0x0: IN  / 0x1: OUT
+//                                                                                                                                           v   URB Function: URB_FUNCTION_BULK_OR_INTERRUPT_TRANSFER (0x0009)
+//byte[] urb_bulk_in3 = {0x1b, 0x0, 0x10, (byte)0x90, 0x67, (byte)0xaf, (byte)0x82, (byte)0x84, (byte)0xff, (byte)0xff, 0x0, 0x0, 0x0, 0x0, 0x9, 0x0, 0x0, 0x2, 0x0, 0x16, 0x0, (byte)0x83, 0x3, 0x0, 0x0, 0x0, 0x0};
+````
+### URB Function: URB_FUNCTION_GET_DESCRIPTOR_FROM_DEVICE (0x000b)
+Used to discover devices
+````
+0000   1c 00 00 00 00 00 00 00 00 00 00 00 00 00 0b 00
+0010   00 02 00 1a 00 80 02 08 00 00 00 00 80 06 00 02
+0020   00 00 b5 01
+````
+
+### URB Function: URB_FUNCTION_SELECT_CONFIGURATION (0x0000)
+Used to discover devices
+````
+0000   1c 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0010   00 02 00 1a 00 00 02 08 00 00 00 00 00 09 01 00
+0020   00 00 00 00
+````
+
+### URB Function: URB_FUNCTION_BULK_OR_INTERRUPT_TRANSFER (0x0009)
+> https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/usb/ns-usb-_urb_bulk_or_interrupt_transfer
+
 ## SysEx
 You may use Matribox II Pro Software V1.0.0 for Windows.zip to drive
 your Matribox, but if you use [Wireshark](https://www.wireshark.org/) to scan USB messages,
@@ -37,23 +70,6 @@ you will see SYSEX messages
 * then there are 1 to 3 bytes (`00` -> `7F` values) for the manufacturer ID
 * then X bytes (`00` -> `7F` values)
 * ends with `F7`
- 
-## URB_BULK messages (USB Request Blocks)
-````
-//                                                                                                                                                                    v ID session USB (device address)
-//                                                                                                                                                                                  v IN
-//                                                                                                                                                                                        vv endpoint number
-//                                                                                                                                                                                v 10000011  endpoint
-//                                                                                                                                                                                           v URB
-//                        vvv  vvv size of the message (27 bytes)
-//                                    vv          vv    vv          vv          vv          vv          vv          vv 0xffff848289c1c010 : IRP ID
-//                                                                                                                                                     vv 0x0: IN  / 0x1: OUT
-//                                                                                                                                           v   URB Function: URB_FUNCTION_BULK_OR_INTERRUPT_TRANSFER (0x0009)
-//byte[] urb_bulk_in3 = {0x1b, 0x0, 0x10, (byte)0x90, 0x67, (byte)0xaf, (byte)0x82, (byte)0x84, (byte)0xff, (byte)0xff, 0x0, 0x0, 0x0, 0x0, 0x9, 0x0, 0x0, 0x2, 0x0, 0x16, 0x0, (byte)0x83, 0x3, 0x0, 0x0, 0x0, 0x0};
-````
-
-### URB Function: URB_FUNCTION_BULK_OR_INTERRUPT_TRANSFER (0x0009)
-> https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/usb/ns-usb-_urb_bulk_or_interrupt_transfer
 
 ## Universal Real Time SysEx messages
 Universal Real Time SysEx messages start with `F0`, followed by `7F`, then include other fields before the terminating `F7`.
@@ -86,6 +102,7 @@ and `Sub-ID#1:` is one of the following values. The bolded values are MIDI Machi
 ### Analysis
 Knowing this, the sample provided above seems to embed a couple of extra data
 
+* SysEx messages are embedded into URB packets
 * there is an `FO` at byte 0003 and another one at byte  001C with only one `F7` at the end :
 > 0000   1b 00 10 f0 98 4a 09 ae ff ff 00 00 00 00 09 00 <br>
 > 0010   01 02 00 0f 00 83 03 48 00 00 00 04 **f0** 21 25 04 <br>

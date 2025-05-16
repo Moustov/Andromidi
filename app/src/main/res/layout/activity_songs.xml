@@ -9,23 +9,25 @@
         tools:context = ".SongsActivity"
         android:background = "@color/black">
     <ListView
-            android:layout_width = "363dp"
-            android:layout_height = "821dp"
+            android:layout_width = "match_parent"
+            android:layout_height = "600dp"
             app:layout_constraintStart_toStartOf = "parent"
-            android:layout_marginStart = "20dp"
+            android:layout_marginStart = "16dp"
+            android:layout_marginEnd = "16dp"
             android:layout_marginTop = "16dp"
             android:id = "@+id/songs_lv"
             app:layout_constraintTop_toBottomOf = "@+id/textView"
-            tools:listitem = "@layout/item_layout"/>
+            tools:listitem = "@layout/item_layout"
+/>
     <TextView
             android:text = "Songs"
-            android:layout_width = "359dp"
+            android:layout_width = "409dp"
             android:layout_height = "61dp"
             app:layout_constraintTop_toTopOf = "parent"
             android:id = "@+id/textView"
             android:autoSizeTextType = "uniform"
             android:textColor = "@color/design_default_color_secondary"
             app:layout_constraintStart_toStartOf = "parent"
-            app:layout_constraintHorizontal_bias = "0.5"
-            app:layout_constraintEnd_toEndOf = "parent"/>
+            android:fontFamily = "casual"
+            android:textStyle = "bold"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

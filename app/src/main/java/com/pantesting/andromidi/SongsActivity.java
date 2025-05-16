@@ -60,63 +60,77 @@ public class SongsActivity extends AppCompatActivity {
         jsonBuilder.append("{" +
                 "\"songs\": [" +
                 "       {\n" +
-                "      \"song\": \"piste 1\",\n" +
+                "      \"song\": \"Why did you do it?\",\n" +
                 "      \"ctrl1\": \"BB Blues\",\n" +
                 "      \"ctrl2\": \"Funky Baby\",\n" +
                 "      \"ctrl3\": \"80's Lead\",\n" +
                 "      \"ctrl4\": \"Dreamspace\"\n" +
                 "    }," +
                 "       {\n" +
-                "      \"song\": \"piste 2\",\n" +
+                "      \"song\": \"Les histoires d'A\",\n" +
                 "      \"ctrl1\": \"BB Blues\",\n" +
                 "      \"ctrl2\": \"Funky Baby\",\n" +
                 "      \"ctrl3\": \"80's Lead\",\n" +
                 "      \"ctrl4\": \"Dreamspace\"\n" +
                 "    }," +
                 "       {\n" +
-                "      \"song\": \"piste 3\",\n" +
+                "      \"song\": \"Molly Chambers\",\n" +
                 "      \"ctrl1\": \"BB Blues\",\n" +
                 "      \"ctrl2\": \"Funky Baby\",\n" +
                 "      \"ctrl3\": \"80's Lead\",\n" +
                 "      \"ctrl4\": \"Dreamspace\"\n" +
                 "    }," +
                 "       {\n" +
-                "      \"song\": \"piste 4\",\n" +
+                "      \"song\": \"La sentinelle\",\n" +
                 "      \"ctrl1\": \"BB Blues\",\n" +
                 "      \"ctrl2\": \"Funky Baby\",\n" +
                 "      \"ctrl3\": \"80's Lead\",\n" +
                 "      \"ctrl4\": \"Dreamspace\"\n" +
                 "    }," +
                 "       {\n" +
-                "      \"song\": \"piste 5\",\n" +
+                "      \"song\": \"Barbès\",\n" +
                 "      \"ctrl1\": \"BB Blues\",\n" +
                 "      \"ctrl2\": \"Funky Baby\",\n" +
                 "      \"ctrl3\": \"80's Lead\",\n" +
                 "      \"ctrl4\": \"Dreamspace\"\n" +
                 "    }," +
                 "       {\n" +
-                "      \"song\": \"piste 6\",\n" +
+                "      \"song\": \"Dreams\",\n" +
                 "      \"ctrl1\": \"BB Blues\",\n" +
                 "      \"ctrl2\": \"Funky Baby\",\n" +
                 "      \"ctrl3\": \"80's Lead\",\n" +
                 "      \"ctrl4\": \"Dreamspace\"\n" +
                 "    }," +
                 "       {\n" +
-                "      \"song\": \"piste 7\",\n" +
+                "      \"song\": \"Au coeur de la nuit\",\n" +
                 "      \"ctrl1\": \"BB Blues\",\n" +
                 "      \"ctrl2\": \"Funky Baby\",\n" +
                 "      \"ctrl3\": \"80's Lead\",\n" +
                 "      \"ctrl4\": \"Dreamspace\"\n" +
                 "    }," +
                 "       {\n" +
-                "      \"song\": \"piste 8\",\n" +
+                "      \"song\": \"Mind of a junkie\",\n" +
                 "      \"ctrl1\": \"BB Blues\",\n" +
                 "      \"ctrl2\": \"Funky Baby\",\n" +
                 "      \"ctrl3\": \"80's Lead\",\n" +
                 "      \"ctrl4\": \"Dreamspace\"\n" +
                 "    }," +
-                "       {\n" +  // @todo this last element is not displayed - fix it
-                "      \"song\": \"piste 9\",\n" +
+                "       {\n" +
+                "      \"song\": \"Space oddity\",\n" +
+                "      \"ctrl1\": \"BB Blues\",\n" +
+                "      \"ctrl2\": \"Funky Baby\",\n" +
+                "      \"ctrl3\": \"80's Lead\",\n" +
+                "      \"ctrl4\": \"Dreamspace\"\n" +
+                "    }," +
+                "       {\n" +
+                "      \"song\": \"Suspicious minds\",\n" +
+                "      \"ctrl1\": \"BB Blues\",\n" +
+                "      \"ctrl2\": \"Funky Baby\",\n" +
+                "      \"ctrl3\": \"80's Lead\",\n" +
+                "      \"ctrl4\": \"Dreamspace\"\n" +
+                "    }," +
+                "       {\n" +
+                "      \"song\": \"piste 11\",\n" +
                 "      \"ctrl1\": \"BB Blues\",\n" +
                 "      \"ctrl2\": \"Funky Baby\",\n" +
                 "      \"ctrl3\": \"80's Lead\",\n" +

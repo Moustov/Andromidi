@@ -1,13 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+                                                   xmlns:app = "http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools = "http://schemas.android.com/tools"
+                                                   android:layout_width = "match_parent"
+                                                   android:layout_height = "wrap_content"
+                                                   android:id = "@+id/linearLayout">
 
     <TextView
-            android:id="@+id/textViewItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@android:color/white" /> <!-- Texte en blanc -->
-</LinearLayout>
+            android:id = "@+id/song_tvi"
+            android:layout_width = "0dp"
+            android:layout_height = "wrap_content"
+            android:textSize = "18sp"
+            android:textColor = "@android:color/holo_orange_light"
+            android:layout_marginTop = "1dp"
+            app:layout_constraintVertical_chainStyle = "packed"
+            app:layout_constraintEnd_toEndOf = "parent"
+            app:layout_constraintBottom_toTopOf = "@+id/ctrl1_tvi"
+            app:layout_constraintTop_toTopOf = "parent"
+            app:layout_constraintStart_toStartOf = "parent"
+            android:fontFamily = "casual"
+            />
+    <TextView
+            android:id = "@+id/ctrl1_tvi"
+            android:layout_width = "0dp"
+            android:layout_height = "wrap_content"
+            android:layout_marginStart = "50dp"
+            android:textSize = "10sp"
+            android:textColor = "@android:color/white"
+            app:layout_constraintTop_toBottomOf = "@+id/song_tvi"
+            app:layout_constraintEnd_toEndOf = "parent"
+            app:layout_constraintStart_toStartOf = "parent"/>
+    <TextView
+            android:id = "@+id/ctrl2_tvi"
+            android:layout_width = "0dp"
+            android:layout_height = "wrap_content"
+            android:layout_marginStart = "50dp"
+            android:textSize = "10sp"
+            android:textColor = "@android:color/white"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@+id/ctrl1_tvi"
+            app:layout_constraintEnd_toEndOf = "parent"/>
+    <TextView
+            android:id = "@+id/ctrl3_tvi"
+            android:layout_width = "0dp"
+            android:layout_height = "wrap_content"
+            android:layout_marginStart = "50dp"
+            android:textSize = "10sp"
+            android:textColor = "@android:color/white"
+            app:layout_constraintTop_toBottomOf = "@+id/ctrl2_tvi"
+            app:layout_constraintEnd_toEndOf = "parent"
+            app:layout_constraintStart_toStartOf = "parent"/>
+    <TextView
+            android:id = "@+id/ctrl4_tvi"
+            android:layout_width = "0dp"
+            android:layout_height = "wrap_content"
+            android:layout_marginStart = "50dp"
+            android:textSize = "10sp"
+            android:textColor = "@android:color/white"
+            app:layout_constraintTop_toBottomOf = "@+id/ctrl3_tvi"
+            app:layout_constraintEnd_toEndOf = "parent"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintBottom_toBottomOf = "parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

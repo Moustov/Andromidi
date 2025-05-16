@@ -10,25 +10,40 @@ import android.widget.TextView;
 import java.util.List;
 
 public class SongAdapter extends ArrayAdapter<Song> {
+    private final Context context;
+    private final List<Song> songs;
     public SongAdapter(Context context, List<Song> songs) {
-        super(context, 0, songs);
+        super(context, R.layout.item_layout, songs);
+        this.context = context;
+        this.songs = songs;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Song song = getItem(position);
-
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.item_layout, parent, false);
         }
 
-        TextView textView = convertView.findViewById(android.R.id.text1);
-        textView.setText(">>> " + song.getSong().toUpperCase()
-                + "\n     " + song.getCtrl1()
-                + "\n     " + song.getCtrl2()
-                + "\n     " + song.getCtrl3()
-                + "\n     " + song.getCtrl4());
-        textView.setTextColor(0xFFFFFFFF);
+        TextView songTextView = convertView.findViewById(R.id.song_tvi);
+        TextView ctrl1TextView = convertView.findViewById(R.id.ctrl1_tvi);
+        TextView ctrl2TextView = convertView.findViewById(R.id.ctrl2_tvi);
+        TextView ctrl3TextView = convertView.findViewById(R.id.ctrl3_tvi);
+        TextView ctrl4TextView = convertView.findViewById(R.id.ctrl4_tvi);
+
+        Song item = this.songs.get(position);
+        songTextView.setText(item.getSong().toUpperCase());
+        if (position % 2 == 0) {
+            songTextView.setBackgroundColor(0x00C5FF8F);
+        }
+        else {
+            songTextView.setBackgroundColor(0x00000000);
+        }
+        ctrl1TextView.setText(item.getCtrl1());
+        ctrl2TextView.setText(item.getCtrl2());
+        ctrl3TextView.setText(item.getCtrl3());
+        ctrl4TextView.setText(item.getCtrl4());
+
         return convertView;
     }
 }
