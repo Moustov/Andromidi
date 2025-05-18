@@ -21,6 +21,7 @@ the USB API used by the software delivered by Sonicake to drive the Matribox.
 //                                                                                                                                           v   URB Function: URB_FUNCTION_BULK_OR_INTERRUPT_TRANSFER (0x0009)
 //byte[] urb_bulk_in3 = {0x1b, 0x0, 0x10, (byte)0x90, 0x67, (byte)0xaf, (byte)0x82, (byte)0x84, (byte)0xff, (byte)0xff, 0x0, 0x0, 0x0, 0x0, 0x9, 0x0, 0x0, 0x2, 0x0, 0x16, 0x0, (byte)0x83, 0x3, 0x0, 0x0, 0x0, 0x0};
 ````
+
 ### URB Function: URB_FUNCTION_GET_DESCRIPTOR_FROM_DEVICE (0x000b)
 Used to discover devices
 ````
@@ -39,6 +40,30 @@ Used to discover devices
 
 ### URB Function: URB_FUNCTION_BULK_OR_INTERRUPT_TRANSFER (0x0009)
 > https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/usb/ns-usb-_urb_bulk_or_interrupt_transfer
+ 
+### URB Function: URB_FUNCTION_ABORT_PIPE (0x0002) 
+
+### All URB functions from Microsoft
+See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/usb/
+
+* _URB_BULK_OR_INTERRUPT_TRANSFER: The _URB_BULK_OR_INTERRUPT_TRANSFER structure is used by USB client drivers to send or receive data on a bulk pipe or on an interrupt pipe.
+* _URB_CONTROL_DESCRIPTOR_REQUEST: The _URB_CONTROL_DESCRIPTOR_REQUEST structure is used by USB client drivers to get or set descriptors on a USB device.
+* _URB_CONTROL_FEATURE_REQUEST: The _URB_CONTROL_FEATURE_REQUEST structure is used by USB client drivers to set or clear features on a device, interface, or endpoint.
+* _URB_CONTROL_GET_CONFIGURATION_REQUEST: The _URB_CONTROL_GET_CONFIGURATION_REQUEST structure is used by USB client drivers to retrieve the current configuration for a device.
+* _URB_CONTROL_GET_INTERFACE_REQUEST: The _URB_CONTROL_GET_INTERFACE_REQUEST structure is used by USB client drivers to retrieve the current alternate interface setting for an interface in the current configuration.
+* _URB_CONTROL_GET_STATUS_REQUEST: The _URB_CONTROL_GET_STATUS_REQUEST structure is used by USB client drivers to retrieve status from a device, interface, endpoint, or other device-defined target.
+* _URB_CONTROL_TRANSFER: The _URB_CONTROL_TRANSFER structure is used by USB client drivers to transfer data to or from a control pipe.
+* _URB_CONTROL_TRANSFER_EX: The _URB_CONTROL_TRANSFER_EX structure is used by USB client drivers to transfer data to or from a control pipe, with a timeout that limits the acceptable transfer time.
+* _URB_CONTROL_VENDOR_OR_CLASS_REQUEST: The _URB_CONTROL_VENDOR_OR_CLASS_REQUEST structure is used by USB client drivers to issue a vendor or class-specific command to a device, interface, endpoint, or other device-defined target.
+* _URB_GET_CURRENT_FRAME_NUMBER: The _URB_GET_CURRENT_FRAME_NUMBER structure is used by USB client drivers to retrieve the current frame number.
+* _URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS: The _URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS structure is used by USB client drivers to retrieve delays associated with isochronous transfer programming in the host controller and transfer completion so that the client driver can ensure that the device gets the isochronous packets in time.
+* _URB_HEADER: The _URB_HEADER structure is used by USB client drivers to provide basic information about the request being sent to the host controller driver.
+* _URB_ISOCH_TRANSFER: The _URB_ISOCH_TRANSFER structure is used by USB client drivers to send data to or retrieve data from an isochronous transfer pipe.
+* _URB_OPEN_STATIC_STREAMS: The _URB_OPEN_STATIC_STREAMS structure is used by a USB client driver to open streams in the specified bulk endpoint.
+* _URB_OS_FEATURE_DESCRIPTOR_REQUEST: The _URB_OS_FEATURE_DESCRIPTOR_REQUEST structure is used by the USB hub driver to retrieve Microsoft OS Feature Descriptors from a USB device or an interface on a USB device.
+* _URB_PIPE_REQUEST: The _URB_PIPE_REQUEST structure is used by USB client drivers to clear a stall condition on an endpoint.
+* _URB_SELECT_CONFIGURATION: The _URB_SELECT_CONFIGURATION structure is used by client drivers to select a configuration for a USB device.
+* _URB_SELECT_INTERFACE: The _URB_SELECT_INTERFACE structure is used by USB client drivers to select an alternate setting for an interface or to change the maximum packet size of a pipe in the current configuration on a USB device.
 
 ## SysEx
 You may use Matribox II Pro Software V1.0.0 for Windows.zip to drive
@@ -148,6 +173,7 @@ This way, controls and values are the one found in the list found in the manual.
 * https://en.wikipedia.org/wiki/MIDI_Machine_Control
 * https://github.com/johnko/python-rtmidi/blob/master/examples/sendsysex.py
 * https://www.zem-college.de/midi/mc_scm1.htm
+* https://learn.microsoft.com/pdf?url=https%3A%2F%2Flearn.microsoft.com%2Fen-us%2Fwindows-hardware%2Fdrivers%2Fddi%2F_usbref%2Ftoc.json
 * URB : 
   * https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/usb/ns-usb-_urb
   * https://www.linkedin.com/pulse/comprehensive-guide-usb-urbs-david-zhu-rcb0c/

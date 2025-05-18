@@ -7,7 +7,7 @@
         android:layout_width = "match_parent"
         android:layout_height = "match_parent"
         android:background = "@color/black"
-        tools:context = ".MainActivity"
+        tools:context = ".activity.MainActivity"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:orientation="vertical">
@@ -37,7 +37,7 @@
                     android:contentDescription = "deletes a loop"
                     android:layout_width = "0dp"
                     android:layout_height = "0dp"
-                    android:layout_margin = "8dp"
+                    android:layout_margin = "16dp"
                     android:layout_rowWeight = "1"
                     android:layout_columnWeight = "1"
                     />
@@ -45,7 +45,7 @@
             <ImageButton
                     android:layout_width = "0dp"
                     android:layout_height = "0dp"
-                    android:layout_margin = "8dp"
+                    android:layout_margin = "16dp"
                     android:layout_rowWeight = "1"
                     android:layout_columnWeight = "1"
                     app:srcCompat = "@mipmap/play_loop"
@@ -252,29 +252,43 @@
                 android:layout_width = "match_parent"
                 android:layout_height = "wrap_content"
                 android:rowCount = "1"
-                android:columnCount = "2"
+                android:columnCount = "3"
                 android:padding = "16dp"
                 android:alignmentMode = "alignMargins"
                 android:id = "@+id/infos_section_tr"
                 >
                 <TextView
-                        android:layout_width = "0dp"
+                        android:layout_width = "151dp"
                         android:layout_height = "wrap_content"
                         android:text = "(device not found)"
                         android:id = "@+id/midi_device_txtvw"
                         android:layout_margin = "16dp"
                         android:layout_rowWeight = "1"
                         android:layout_columnWeight = "1"
+                        android:layout_row = "0"
+                        android:layout_column = "1"
                         android:textColor = "@android:color/holo_purple"/>
+                <ImageButton
+                        android:layout_width = "30dp"
+                        android:layout_height = "30dp"
+                        app:srcCompat = "@mipmap/midi_port"
+                        android:layout_rowWeight = "1"
+                        android:layout_columnWeight = "1"
+                        android:layout_row = "0"
+                        android:layout_column = "0"
+                        android:background = "@color/black"
+                        android:id = "@+id/midi_imgbtn"/>
                 <TextView
-                        android:layout_width = "0dp"
+                        android:layout_width = "48dp"
                         android:layout_height = "wrap_content"
-                        android:text = "Andromidi 33"
+                        android:text = "Andromidi v39"
                         android:textAlignment = "textEnd"
                         android:id = "@+id/andromidi_version_txtvw"
                         android:layout_margin = "16dp"
                         android:layout_rowWeight = "1"
                         android:layout_columnWeight = "1"
+                        android:layout_row = "0"
+                        android:layout_column = "2"
                         android:textColor = "@android:color/holo_orange_light"/>
         </GridLayout>
 </LinearLayout>
