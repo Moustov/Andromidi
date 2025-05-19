@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -51,7 +52,7 @@ public class SongsActivity extends AppCompatActivity  implements ActivityCompat.
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        copyAssets();
         ListView listView = findViewById(R.id.songs_lv);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -84,6 +85,28 @@ public class SongsActivity extends AppCompatActivity  implements ActivityCompat.
         this.openFile();
     }
 
+    public void copyAssets() {
+        AssetManager assetManager = getAssets();
+        String[] files = null;
+        try {
+            files = assetManager.list("");
+            for (String filename : files) {
+                InputStream in = assetManager.open(filename);
+                String outFileName = getFilesDir() + "/" + filename; // ou un autre chemin
+                OutputStream out = new FileOutputStream(outFileName);
+                byte[] buffer = new byte[1024];
+                int read;
+                while ((read = in.read(buffer)) != -1) {
+                    out.write(buffer, 0, read);
+                }
+                in.close();
+                out.flush();
+                out.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private static final int REQUEST_CODE_OPEN_DOCUMENT = 1;
 
