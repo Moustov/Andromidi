@@ -1,6 +1,7 @@
 package com.pantesting.andromidi.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -14,6 +15,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -32,9 +36,10 @@ import com.pantesting.andromidi.song.SongsResponse;
 import java.io.*;
 import java.util.List;
 
-public class SongsActivity extends AppCompatActivity {
+public class SongsActivity extends AppCompatActivity  implements ActivityCompat.OnRequestPermissionsResultCallback{
     public static final int REQUEST_CODE = 100; // Choisissez un nombre entier unique
-    public List<Song> songs = null;
+    public static List<Song> songs = null;
+    private ActivityResultLauncher<Intent> openDocumentLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +53,6 @@ public class SongsActivity extends AppCompatActivity {
         });
 
         ListView listView = findViewById(R.id.songs_lv);
-        checkPermissions_andLoadSongs();
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -59,99 +62,73 @@ public class SongsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        openDocumentLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            Uri uri = data.getData();
+                            readFile(uri);
+                        }
+                        else{
+                            Toast.makeText(SongsActivity.this, "Problème sur le nom de fichier sélectionné", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else{
+                        Toast.makeText(SongsActivity.this, "Problème sur le sélecteur de documents", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        this.openFile();
     }
 
-    private void checkPermissions_andLoadSongs() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            // Permission non accordée
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                // Afficher une explication à l'utilisateur
-                Toast.makeText(this, "Cette permission est nécessaire pour accéder aux fichiers.", Toast.LENGTH_LONG).show();
-                openMobileAuthorization();
-            } else {
-                // Aucune explication n'est nécessaire, on peut demander la permission
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
-            }
-        } else {
-            // Permission déjà accordée, continuez avec votre logique
-            accessFiles();
-        }
+
+    private static final int REQUEST_CODE_OPEN_DOCUMENT = 1;
+
+    private void openFile() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/json"); // Type de fichier JSON
+        openDocumentLauncher.launch(intent);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults); // Appel à la méthode super
-
-        if (requestCode == REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission accordée
-                accessFiles();
-            } else {
-                // Permission refusée
-                Toast.makeText(this, "Permission refusée.", Toast.LENGTH_SHORT).show();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_OPEN_DOCUMENT && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri uri = data.getData();
+                readFile(uri);
             }
         }
     }
 
-    private void accessFiles() {
-        Toast.makeText(this, "Accès aux fichiers accordé!", Toast.LENGTH_SHORT).show();
-        try {
-            songs = loadSongsFromJSON();
+    private void readFile(Uri uri) {
+        try (InputStream inputStream = getContentResolver().openInputStream(uri);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            String jsonContent = stringBuilder.toString();
+            Gson gson = new GsonBuilder().create();
+            SongsResponse response = gson.fromJson(jsonContent, SongsResponse.class);
+            songs = response.getSongs();
             if (songs != null) {
                 // Utilisez votre adapter pour afficher les chansons
-                SongAdapter adapter = new SongAdapter(this, this.songs);
+                SongAdapter adapter = new SongAdapter(this, songs);
                 ListView listView = findViewById(R.id.songs_lv);
                 listView.setAdapter(adapter);
             } else {
                 Toast.makeText(this, "Erreur lors du chargement des chansons", Toast.LENGTH_SHORT).show();
             }
         } catch (IOException e) {
-            Toast.makeText(this, "Problème pendant le chargement des chansons : " + e.toString(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+            Toast.makeText(this, "Erreur lors de la lecture du fichier.", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public void openMobileAuthorization() {
-        Toast.makeText(SongsActivity.this, "Vous devez activer la permission depuis les paramètres", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package", getPackageName(), null);
-        intent.setData(uri);
-        startActivity(intent);
-    }
-
-    private List<Song> loadSongsFromJSON() throws IOException {
-        // Logique pour charger les chansons depuis un fichier
-        // Assurez-vous que vous avez les permissions nécessaires ici
-        String jsonBuilder = this.get_file_content_on_sdcard("Andromidi", "effects.json");
-        Gson gson = new GsonBuilder().create();
-        SongsResponse response = gson.fromJson(jsonBuilder, SongsResponse.class);
-        return response.getSongs();
-    }
-
-    public String get_file_content_on_sdcard(String dir_path, String file_name) throws IOException {
-        File sdCard = Environment.getExternalStorageDirectory();
-        String sdCard_status = Environment.getExternalStorageState();
-
-        if (!sdCard_status.equals(Environment.MEDIA_MOUNTED) &&
-                !sdCard_status.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) {
-            throw new IOException("SD card not mounted correctly");
-        }
-
-        File dir = new File(sdCard.getAbsolutePath() + "/" + dir_path);
-        File file = new File(dir, file_name);
-
-        if (!file.exists()) {
-            throw new IOException("File does not exist: " + file.getAbsolutePath());
-        }
-
-        StringBuilder file_content = new StringBuilder();
-        try (FileInputStream fis = new FileInputStream(file);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(fis))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                file_content.append(line);
-                Log.d("Line", line);
-            }
-        }
-        return file_content.toString();
     }
 }
