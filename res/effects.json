@@ -2,61 +2,91 @@
   "songs": [
     {
       "song": "Molly's chamber",
+      "bank_id" : 30,
       "ctrl1": "BB Blues",
-      "ctrl2": "Funky Baby",
+      "ctrl2": "Funk Baby",
       "ctrl3": "80's Lead",
       "ctrl4": "Dreamspace"
     },
     {
-      "song": "piste 2",
+      "song": "Les histoires d'A.",
+      "bank_id" : 30,
       "ctrl1": "BB Blues",
-      "ctrl2": "Funky Baby",
+      "ctrl2": "Funk Baby",
       "ctrl3": "80's Lead",
       "ctrl4": "Dreamspace"
     },
     {
-      "song": "piste 3",
+      "song": "Why did you did it?",
+      "bank_id" : 30,
       "ctrl1": "BB Blues",
-      "ctrl2": "Funky Baby",
+      "ctrl2": "Funk Baby",
       "ctrl3": "80's Lead",
       "ctrl4": "Dreamspace"
     },
     {
-      "song": "piste 4",
+      "song": "La sentinelle",
+      "bank_id" : 30,
       "ctrl1": "BB Blues",
       "ctrl2": "BB Blues",
       "ctrl3": "BB Blues",
       "ctrl4": "BB Blues"
-    }
-  ],
-  "effects": [
-    {
-      "effect_name": "Dreamspace",
-      "config": {
-        "pedal1": "DRV",
-        "params": []
-      }
     },
     {
-      "effect_name": "80's Lead",
-      "config": {
-        "pedal1": "DRV",
-        "params": []
-      }
+      "song": "Dreams",
+      "bank_id" : 31,
+      "ctrl1": "BB Blues",
+      "ctrl2": "BB Blues",
+      "ctrl3": "BB Blues",
+      "ctrl4": "BB Blues"
     },
     {
-      "effect_name": "BB Blues",
-      "config": {
-        "pedal1": "DRV",
-        "params": []
-      }
+      "song": "Suspicious mind",
+      "bank_id" : 30,
+      "ctrl1": "BB Blues",
+      "ctrl2": "BB Blues",
+      "ctrl3": "BB Blues",
+      "ctrl4": "BB Blues"
     },
     {
-      "effect_name": "Funky Baby",
-      "config": {
-        "pedal1": "DRV",
-        "params": []
-      }
+      "song": "Space oddity",
+      "bank_id" : 32,
+      "ctrl1": "SPACE ODDITY 1",
+      "ctrl2": "SO CFGA",
+      "ctrl3": "xxx",
+      "ctrl4": "SPACE ODDITY END"
+    },
+    {
+      "song": "Mind of a junkie",
+      "bank_id" : 30,
+      "ctrl1": "BB Blues",
+      "ctrl2": "BB Blues",
+      "ctrl3": "BB Blues",
+      "ctrl4": "BB Blues"
+    },
+    {
+      "song": "Barbès",
+      "bank_id" : 33,
+      "ctrl1": "BB Blues",
+      "ctrl2": "BB Blues",
+      "ctrl3": "BB Blues",
+      "ctrl4": "BB Blues"
+    },
+    {
+      "song": "Au coeur de la nuit",
+      "bank_id" : 30,
+      "ctrl1": "BB Blues",
+      "ctrl2": "BB Blues",
+      "ctrl3": "BB Blues",
+      "ctrl4": "BB Blues"
+    },
+    {
+      "song": "Maybe tomorrow",
+      "bank_id" : 30,
+      "ctrl1": "BB Blues",
+      "ctrl2": "BB Blues",
+      "ctrl3": "BB Blues",
+      "ctrl4": "BB Blues"
     }
   ]
 }

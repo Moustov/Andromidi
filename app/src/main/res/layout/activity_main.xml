@@ -94,7 +94,7 @@
                     android:layout_columnWeight = "1"
                     />
             <ImageButton
-                    android:contentDescription = ""
+                    android:contentDescription = "empty slot"
                     android:layout_width = "0dp"
                     android:layout_height = "0dp"
                     android:layout_margin = "16dp"
@@ -257,6 +257,17 @@
                 android:alignmentMode = "alignMargins"
                 android:id = "@+id/infos_section_tr"
                 >
+                <ImageButton
+                        android:contentDescription = "midi setting"
+                        android:layout_width = "30dp"
+                        android:layout_height = "30dp"
+                        app:srcCompat = "@mipmap/midi_port"
+                        android:layout_rowWeight = "1"
+                        android:layout_columnWeight = "1"
+                        android:layout_row = "0"
+                        android:layout_column = "0"
+                        android:background = "@color/black"
+                        android:id = "@+id/midi_imgbtn"/>
                 <TextView
                         android:layout_width = "151dp"
                         android:layout_height = "wrap_content"
@@ -268,20 +279,10 @@
                         android:layout_row = "0"
                         android:layout_column = "1"
                         android:textColor = "@android:color/holo_purple"/>
-                <ImageButton
-                        android:layout_width = "30dp"
-                        android:layout_height = "30dp"
-                        app:srcCompat = "@mipmap/midi_port"
-                        android:layout_rowWeight = "1"
-                        android:layout_columnWeight = "1"
-                        android:layout_row = "0"
-                        android:layout_column = "0"
-                        android:background = "@color/black"
-                        android:id = "@+id/midi_imgbtn"/>
                 <TextView
                         android:layout_width = "48dp"
-                        android:layout_height = "wrap_content"
-                        android:text = "Andromidi v40"
+                        android:layout_height = "34dp"
+                        android:text = "Andromidi v51"
                         android:textAlignment = "textEnd"
                         android:id = "@+id/andromidi_version_txtvw"
                         android:layout_margin = "16dp"
@@ -291,4 +292,33 @@
                         android:layout_column = "2"
                         android:textColor = "@android:color/holo_orange_light"/>
         </GridLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:alignmentMode = "alignMargins"
+                android:id = "@+id/usb_section_tr"
+                >
+                <TextView
+                        android:layout_width = "0dp"
+                        android:layout_height = "100dp"
+                        android:text = "->[]"
+                        android:id = "@+id/midi_device_in_txtvw"
+                        android:textColor = "@android:color/white"
+                        app:layout_constraintBaseline_toBaselineOf = "parent"
+                        app:layout_constraintEnd_toStartOf = "@+id/midi_device_out_txtvw"
+                        app:layout_constraintStart_toStartOf = "parent"
+                        android:layout_marginLeft = "16dp"
+                        android:layout_marginStart = "16dp"/>
+                <TextView
+                        android:layout_width = "0dp"
+                        android:layout_height = "100dp"
+                        android:text = "[]->"
+                        android:textAlignment = "textEnd"
+                        android:id = "@+id/midi_device_out_txtvw"
+                        android:textColor = "@android:color/white"
+                        app:layout_constraintBaseline_toBaselineOf = "parent"
+                        app:layout_constraintStart_toEndOf = "@+id/midi_device_in_txtvw"
+                        android:layout_marginEnd = "16dp"
+                        app:layout_constraintEnd_toEndOf = "parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
