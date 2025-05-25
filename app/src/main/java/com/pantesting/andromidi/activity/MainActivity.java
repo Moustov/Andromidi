@@ -1,11 +1,15 @@
 package com.pantesting.andromidi.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton midi_imgbtn;
     private ImageButton prev_preset_imgbtn, next_preset_imgbtn;
     private SeekBar knob1_sb, knob2_sb, knob3_sb, volume_preset_sb;
-    public TextView usb_in_txtvw, usb_out_txtvw;
+    public TextView song_txtvw, bank_id_txtvw;
     private Boolean is_looper_menu_activated;
     private Boolean is_drum_menu_activated;
     private Boolean is_looper_play_activated;
@@ -31,6 +35,47 @@ public class MainActivity extends AppCompatActivity {
     private TextView midi_device_txtvw;
 //    private TextView version_txtvw;
     private MidiCCListenerThread midiThread;
+    private int previous_bank_id = 0;
+    private final ActivityResultLauncher<Intent> resultLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Intent data = result.getData();
+                            if (data != null) {
+                                int new_bank_id = data.getIntExtra("RESULT_SELECTED_SONG_BANK_ID", 0);
+                                String song_title = data.getStringExtra("RESULT_SELECTED_SONG_TITLE");
+                                int bpm = data.getIntExtra("RESULT_SELECTED_SONG_BPM", 0);
+                                song_txtvw.setText(song_title);
+                                bank_id_txtvw.setText("" + new_bank_id);
+                                Log.d("MainActivity", "new_bank_id : " + new_bank_id);
+                                Log.d("MainActivity", "song_title : " + song_title);
+                                Log.d("MainActivity", "bpm : " + bpm);
+                                MatriboxIIPro.sendPresetBpm(bpm);
+                                for (int i=0 ; i<(previous_bank_id-1) ; i++){
+                                    MatriboxIIPro.sendBankPrevWaitMode();
+                                    try {
+                                        Thread.sleep(50);
+                                    } catch (InterruptedException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                                for (int i=0 ; i<(new_bank_id-1) ;i++){
+                                    MatriboxIIPro.sendBankNextWaitMode();
+                                    try {
+                                        Thread.sleep(50);
+                                    } catch (InterruptedException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                                previous_bank_id = new_bank_id;
+                            }
+                        }
+                    });
+
+    public void openSongsActivity() {
+        Intent intent = new Intent(MainActivity.this, SongsActivity.class);
+        resultLauncher.launch(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.midi_device_txtvw = findViewById(R.id.midi_device_txtvw);
-        this.usb_in_txtvw = findViewById(R.id.midi_device_in_txtvw);
-        this.usb_out_txtvw = findViewById(R.id.midi_device_out_txtvw);
+        this.song_txtvw = findViewById(R.id.song_title_txtvw);
+        this.bank_id_txtvw = findViewById(R.id.bank_id_txtvw);
         this.midi_imgbtn = findViewById(R.id.midi_imgbtn);
         this.tap_imgbtn = findViewById(R.id.tap_imgbtn);
         this.songs_btn = findViewById(R.id.songs_btn);
@@ -61,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
         this.is_drum_menu_activated = false;
         this.is_looper_play_activated = false;
         this.is_drum_play_activated = false;
-        MatriboxIIPro.set_context(this.getApplicationContext(), this.usb_in_txtvw, this.usb_out_txtvw);
+        View rootView = findViewById(android.R.id.content);
+        MatriboxIIPro.set_context(this.getApplicationContext(), rootView);
         MatriboxIIPro.connectToMatribox();
         this.midi_device_txtvw.setText(MatriboxIIPro.manufacturer + " " + MatriboxIIPro.product + "\n" + MatriboxIIPro.serial_number);
 
@@ -76,9 +122,7 @@ public class MainActivity extends AppCompatActivity {
         songs_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Créer une intention pour ouvrir la seconde activité
-                Intent intent = new Intent(MainActivity.this, SongsActivity.class);
-                startActivity(intent);
+                openSongsActivity();
             }
         });
         del_loop_imgbtn.setOnClickListener(new View.OnClickListener() {
@@ -265,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
         });
         // deviceInfo est ton MidiDeviceInfo ciblé
         if (MatriboxIIPro.my_device != null) {
-            this.midiThread = new MidiCCListenerThread(this.getApplicationContext(), MatriboxIIPro.my_device, this.usb_in_txtvw, this.usb_out_txtvw);
+            this.midiThread = new MidiCCListenerThread(this.getApplicationContext(), MatriboxIIPro.my_device, this.song_txtvw, this.bank_id_txtvw);
             this.midiThread.start();
         }
     }
@@ -276,11 +320,11 @@ public class MainActivity extends AppCompatActivity {
             midiThread.interrupt();
         }
         if(MatriboxIIPro.my_device != null) {
-            midiThread = new MidiCCListenerThread(getApplicationContext(), MatriboxIIPro.my_device, this.usb_in_txtvw, this.usb_out_txtvw);
+            midiThread = new MidiCCListenerThread(getApplicationContext(), MatriboxIIPro.my_device, this.song_txtvw, this.bank_id_txtvw);
             midiThread.start();
         }
 
-        MatriboxIIPro.set_context(getApplicationContext(), this.usb_in_txtvw, this.usb_out_txtvw);
+        MatriboxIIPro.set_context(getApplicationContext(), v);
         MatriboxIIPro.connectToMatribox();
         midi_device_txtvw.setText(MatriboxIIPro.manufacturer + " " + MatriboxIIPro.product);
         Snackbar.make(v, "MatriboxIIPro device updated", Snackbar.LENGTH_SHORT).show();

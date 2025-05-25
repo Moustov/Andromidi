@@ -5,7 +5,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.midi.*;
 import android.os.Build;
+import android.view.View;
 import android.widget.TextView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.util.Set;
@@ -18,16 +20,12 @@ public class Midi {
     protected static MidiInputPort inputPort;
     protected static MidiOutputPort outputPort;
 
-    @SuppressLint("StaticFieldLeak")
-    protected static TextView usb_out_message_txvw;
-    @SuppressLint("StaticFieldLeak")
-    protected static TextView usb_in_message_txvw;
+    protected static View my_view;
 
-    public static void set_context(Context a_context, TextView usb_in, TextView usb_out)
+    public static void set_context(Context a_context, View a_view)
     {
         Midi.mContext = a_context;
-        Midi.usb_in_message_txvw = usb_in;
-        Midi.usb_out_message_txvw = usb_out;
+        Midi.my_view = a_view;
     }
 
     public static Set<MidiDeviceInfo> getMidiDevices(){
@@ -59,10 +57,9 @@ public class Midi {
                     (byte) (value & 0x7F)
             };
             try {
-                if (Midi.usb_out_message_txvw != null){
-                    Midi.usb_out_message_txvw.setText(msg.toString());
+                if (Midi.my_view != null) {
+                    Snackbar.make(Midi.my_view, "CC out:  " + msg.toString(), Snackbar.LENGTH_SHORT).show();
                 }
-                // Ancienne méthode
                 Midi.inputPort.send(msg, 0, msg.length);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -98,8 +95,8 @@ public class Midi {
                 for (int i = 0; i < arrayList.size(); i++) {
                     newArray[i] = arrayList.get(i);
                 }
-                if (Midi.usb_out_message_txvw != null){
-                    Midi.usb_out_message_txvw.setText(newArray.toString());
+                if (Midi.my_view != null) {
+                    Snackbar.make(Midi.my_view, "SX out:  " + newArray.toString(), Snackbar.LENGTH_SHORT).show();
                 }
                 inputPort.send(newArray, 0, newArray.length);
             } catch (IOException e) {
@@ -111,7 +108,9 @@ public class Midi {
     public static void sendURB_BULK_in(byte[] data) {
         if (Midi.inputPort != null) {
             try {
-                // Ancienne méthode
+                if (Midi.my_view != null) {
+                    Snackbar.make(Midi.my_view, "URB out:  " + data.toString(), Snackbar.LENGTH_SHORT).show();
+                }
                 Midi.inputPort.send(data, 0, data.length);
             } catch (IOException e) {
                 e.printStackTrace();

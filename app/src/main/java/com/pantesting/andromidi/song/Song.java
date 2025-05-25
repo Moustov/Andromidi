@@ -3,6 +3,7 @@ package com.pantesting.andromidi.song;
 public class Song {
     private String song;
     private int bank_id;
+    private int bpm;
     private String ctrl1;
     private String ctrl2;
     private String ctrl3;
@@ -20,6 +21,7 @@ public class Song {
         return null;
     }
     public int getBankId() { return bank_id; }
+    public int getBpm() { return bpm; }
     public String getCtrl1() { return ctrl1; }
     public String getCtrl2() { return ctrl2; }
     public String getCtrl3() { return ctrl3; }

@@ -35,10 +35,6 @@ public class SongsActivity extends AppCompatActivity  implements ActivityCompat.
     public static List<Song> songs = null;
     private ActivityResultLauncher<Intent> openDocumentLauncher;
     private static final int REQUEST_CODE_OPEN_DOCUMENT = 1;
-    private int bank_id = 0;
-
-    private MatriboxIIPro device;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +46,6 @@ public class SongsActivity extends AppCompatActivity  implements ActivityCompat.
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        this.device.set_context(this.getBaseContext(), null, null);
-        this.device.connectToMatribox();
         ListView listView = findViewById(R.id.songs_lv);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -59,26 +53,14 @@ public class SongsActivity extends AppCompatActivity  implements ActivityCompat.
                 if (songs != null) {
                     String song = songs.get(position).getSong();
                     int new_bank_id = songs.get(position).getBankId();
-//                    device.connectToMatribox();
-                    for (int i=0 ; i<bank_id ;i++){
-                        device.sendBankPrevWaitMode();
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    for (int i=0 ; i<new_bank_id ;i++){
-                        device.sendBankNextWaitMode();
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    bank_id = new_bank_id;
-//                    device.sendBank(position);
-                    Snackbar.make(view, "BankID " + bank_id, Snackbar.LENGTH_SHORT).show();
+                    int bpm = songs.get(position).getBpm();
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("RESULT_SELECTED_SONG_BANK_ID", new_bank_id);
+                    resultIntent.putExtra("RESULT_SELECTED_SONG_TITLE", song);
+                    resultIntent.putExtra("RESULT_SELECTED_SONG_BPM", bpm);
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
+                    Snackbar.make(view, "BankID " + new_bank_id, Snackbar.LENGTH_SHORT).show();
 //                    defineSoundEffect(song);
                 }
             }
@@ -114,24 +96,24 @@ public class SongsActivity extends AppCompatActivity  implements ActivityCompat.
         return null; // Retourne null si aucune chanson n'a été trouvée
     }
 
-    private void defineSoundEffect(String selected_song){
-        Toast.makeText(SongsActivity.this, "Vous avez cliqué sur: " + selected_song, Toast.LENGTH_SHORT).show();
-        Song setting = this.findSongByName(songs, selected_song);
-
-
-        for(int ctrl_id=1; ctrl_id<=4 ; ctrl_id++) {
-            String effect = setting.getCtrl(ctrl_id);
-            if (effect != null) {
-                Toast.makeText(SongsActivity.this, "Effet #" + ctrl_id + ": " + effect, Toast.LENGTH_SHORT).show();
-                try {
-                    device.setEffect(ctrl_id, effect, getApplicationContext());
-                } catch (Exception e) {
-//                    throw new RuntimeException(e);
-                    Toast.makeText(SongsActivity.this, "Erreur sur " + effect + "("+e.toString()+")", Toast.LENGTH_LONG).show();
-                }
-            }
-        }
-    }
+//    private void defineSoundEffect(String selected_song){
+//        Toast.makeText(SongsActivity.this, "Vous avez cliqué sur: " + selected_song, Toast.LENGTH_SHORT).show();
+//        Song setting = this.findSongByName(songs, selected_song);
+//
+//
+//        for(int ctrl_id=1; ctrl_id<=4 ; ctrl_id++) {
+//            String effect = setting.getCtrl(ctrl_id);
+//            if (effect != null) {
+//                Toast.makeText(SongsActivity.this, "Effet #" + ctrl_id + ": " + effect, Toast.LENGTH_SHORT).show();
+//                try {
+//                    device.setEffect(ctrl_id, effect, getApplicationContext());
+//                } catch (Exception e) {
+////                    throw new RuntimeException(e);
+//                    Toast.makeText(SongsActivity.this, "Erreur sur " + effect + "("+e.toString()+")", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        }
+//    }
 
     private void openFile() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);

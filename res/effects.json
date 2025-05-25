@@ -2,91 +2,102 @@
   "songs": [
     {
       "song": "Molly's chamber",
-      "bank_id" : 30,
-      "ctrl1": "BB Blues",
-      "ctrl2": "Funk Baby",
-      "ctrl3": "80's Lead",
-      "ctrl4": "Dreamspace"
+      "bank_id" : 31,
+      "bpm" : 150,
+      "ctrl1": "MOLLY'S CHAMBER",
+      "ctrl2": "-",
+      "ctrl3": "-",
+      "ctrl4": "-"
     },
     {
       "song": "Les histoires d'A.",
-      "bank_id" : 30,
-      "ctrl1": "BB Blues",
-      "ctrl2": "Funk Baby",
-      "ctrl3": "80's Lead",
-      "ctrl4": "Dreamspace"
+      "bank_id" : 33,
+      "bpm" : 130,
+      "ctrl1": "-",
+      "ctrl2": "-",
+      "ctrl3": "-",
+      "ctrl4": "-"
     },
     {
       "song": "Why did you did it?",
-      "bank_id" : 30,
-      "ctrl1": "BB Blues",
-      "ctrl2": "Funk Baby",
-      "ctrl3": "80's Lead",
-      "ctrl4": "Dreamspace"
+      "bank_id" : 34,
+      "bpm" : 100,
+      "ctrl1": "-",
+      "ctrl2": "-",
+      "ctrl3": "-",
+      "ctrl4": "-"
     },
     {
       "song": "La sentinelle",
-      "bank_id" : 30,
-      "ctrl1": "BB Blues",
-      "ctrl2": "BB Blues",
-      "ctrl3": "BB Blues",
-      "ctrl4": "BB Blues"
+      "bank_id" : 35,
+      "bpm" : 180,
+      "ctrl1": "-",
+      "ctrl2": "-",
+      "ctrl3": "-",
+      "ctrl4": "-"
     },
     {
       "song": "Dreams",
-      "bank_id" : 31,
-      "ctrl1": "BB Blues",
-      "ctrl2": "BB Blues",
-      "ctrl3": "BB Blues",
-      "ctrl4": "BB Blues"
+      "bank_id" : 36,
+      "bpm" : 120,
+      "ctrl1": "-",
+      "ctrl2": "-",
+      "ctrl3": "-",
+      "ctrl4": "-"
     },
     {
       "song": "Suspicious mind",
-      "bank_id" : 30,
-      "ctrl1": "BB Blues",
-      "ctrl2": "BB Blues",
-      "ctrl3": "BB Blues",
-      "ctrl4": "BB Blues"
+      "bank_id" : 37,
+      "bpm" : 116,
+      "ctrl1": "-",
+      "ctrl2": "-",
+      "ctrl3": "-",
+      "ctrl4": "-"
     },
     {
       "song": "Space oddity",
       "bank_id" : 32,
+      "bpm" : 68,
       "ctrl1": "SPACE ODDITY 1",
       "ctrl2": "SO CFGA",
-      "ctrl3": "xxx",
+      "ctrl3": "-",
       "ctrl4": "SPACE ODDITY END"
     },
     {
       "song": "Mind of a junkie",
-      "bank_id" : 30,
-      "ctrl1": "BB Blues",
-      "ctrl2": "BB Blues",
-      "ctrl3": "BB Blues",
-      "ctrl4": "BB Blues"
+      "bank_id" : 38,
+      "bpm" : 112,
+      "ctrl1": "-",
+      "ctrl2": "-",
+      "ctrl3": "-",
+      "ctrl4": "-"
     },
     {
       "song": "Barbès",
-      "bank_id" : 33,
-      "ctrl1": "BB Blues",
-      "ctrl2": "BB Blues",
-      "ctrl3": "BB Blues",
-      "ctrl4": "BB Blues"
+      "bank_id" : 39,
+      "bpm" : 88,
+      "ctrl1": "-",
+      "ctrl2": "-",
+      "ctrl3": "-",
+      "ctrl4": "-"
     },
     {
       "song": "Au coeur de la nuit",
-      "bank_id" : 30,
-      "ctrl1": "BB Blues",
-      "ctrl2": "BB Blues",
-      "ctrl3": "BB Blues",
-      "ctrl4": "BB Blues"
+      "bank_id" : 40,
+      "bpm" : 160,
+      "ctrl1": "-",
+      "ctrl2": "-",
+      "ctrl3": "-",
+      "ctrl4": "-"
     },
     {
       "song": "Maybe tomorrow",
-      "bank_id" : 30,
-      "ctrl1": "BB Blues",
-      "ctrl2": "BB Blues",
-      "ctrl3": "BB Blues",
-      "ctrl4": "BB Blues"
+      "bank_id" : 41,
+      "bpm" : 82,
+      "ctrl1": "-",
+      "ctrl2": "-",
+      "ctrl3": "-",
+      "ctrl4": "-"
     }
   ]
 }

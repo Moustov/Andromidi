@@ -5,6 +5,7 @@ import android.media.midi.MidiDeviceInfo;
 import android.media.midi.MidiManager;
 import android.util.Log;
 import android.widget.TextView;
+import com.google.android.material.snackbar.Snackbar;
 import com.pantesting.andromidi.activity.MainActivity;
 
 import java.util.List;
@@ -72,6 +73,24 @@ public class MatriboxIIPro extends Midi {
 
     public static void sendTap() {
         MatriboxIIPro.sendControlChange(1, 70, 0);
+    }
+
+    public static void sendPresetBpm(int bpm) {
+        if (40<= bpm && bpm <=127) {
+            MatriboxIIPro.sendControlChange(1, 68, 0);
+            MatriboxIIPro.sendControlChange(1, 69, bpm);
+        }
+        else if (128<= bpm && bpm <=255) {
+            MatriboxIIPro.sendControlChange(1, 68, 1);
+            MatriboxIIPro.sendControlChange(1, 69, 128 - bpm);
+        }
+        else if (256<= bpm && bpm <=300) {
+            MatriboxIIPro.sendControlChange(1, 68, 0);
+            MatriboxIIPro.sendControlChange(1, 69, bpm - 256);
+        }
+        else{
+            Snackbar.make(Midi.my_view, "Beat out of range", Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     public static void sendActivateLooperMenu() {

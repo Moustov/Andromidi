@@ -235,9 +235,40 @@
         </GridLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width = "match_parent"
-                android:layout_height = "50dp"
-                android:id = "@+id/songs_section_tr"
-                >
+                android:layout_height = "wrap_content"
+                android:alignmentMode = "alignMargins"
+                android:id = "@+id/usb_section_tr"
+                app:layout_constraintStart_toStartOf = "parent"
+                app:layout_constraintEnd_toEndOf = "parent">
+                <TextView
+                        android:layout_width = "0dp"
+                        android:layout_height = "100dp"
+                        android:text = "(no song)"
+                        android:id = "@+id/song_title_txtvw"
+                        android:textColor = "@android:color/white"
+                        app:layout_constraintBaseline_toBaselineOf = "parent"
+                        app:layout_constraintEnd_toStartOf = "@+id/bank_id_txtvw"
+                        app:layout_constraintStart_toStartOf = "parent"
+                        android:layout_marginStart = "16dp"
+                        android:fontFamily = "casual"
+                        android:textSize = "24sp"/>
+                <TextView
+                        android:layout_width = "50dp"
+                        android:layout_height = "100dp"
+                        android:text = "[]"
+                        android:textAlignment = "textEnd"
+                        android:id = "@+id/bank_id_txtvw"
+                        android:textColor = "@android:color/white"
+                        app:layout_constraintBaseline_toBaselineOf = "parent"
+                        app:layout_constraintStart_toEndOf = "@+id/song_title_txtvw"
+                        android:layout_marginEnd = "16dp"
+                        app:layout_constraintEnd_toEndOf = "parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout><androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width = "match_parent"
+        android:layout_height = "50dp"
+        android:id = "@+id/songs_section_tr"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintEnd_toEndOf = "parent">
             <Button
                     android:text = "Songs"
                     android:layout_width = "178dp"
@@ -247,8 +278,7 @@
                     app:layout_constraintHorizontal_bias = "0.5"
                     app:layout_constraintEnd_toEndOf = "parent"
                     app:layout_constraintTop_toTopOf = "parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <GridLayout
+        </androidx.constraintlayout.widget.ConstraintLayout><GridLayout
                 android:layout_width = "match_parent"
                 android:layout_height = "wrap_content"
                 android:rowCount = "1"
@@ -282,7 +312,7 @@
                 <TextView
                         android:layout_width = "48dp"
                         android:layout_height = "34dp"
-                        android:text = "Andromidi v51"
+                        android:text = "Andromidi v55"
                         android:textAlignment = "textEnd"
                         android:id = "@+id/andromidi_version_txtvw"
                         android:layout_margin = "16dp"
@@ -292,33 +322,4 @@
                         android:layout_column = "2"
                         android:textColor = "@android:color/holo_orange_light"/>
         </GridLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width = "match_parent"
-                android:layout_height = "wrap_content"
-                android:alignmentMode = "alignMargins"
-                android:id = "@+id/usb_section_tr"
-                >
-                <TextView
-                        android:layout_width = "0dp"
-                        android:layout_height = "100dp"
-                        android:text = "->[]"
-                        android:id = "@+id/midi_device_in_txtvw"
-                        android:textColor = "@android:color/white"
-                        app:layout_constraintBaseline_toBaselineOf = "parent"
-                        app:layout_constraintEnd_toStartOf = "@+id/midi_device_out_txtvw"
-                        app:layout_constraintStart_toStartOf = "parent"
-                        android:layout_marginLeft = "16dp"
-                        android:layout_marginStart = "16dp"/>
-                <TextView
-                        android:layout_width = "0dp"
-                        android:layout_height = "100dp"
-                        android:text = "[]->"
-                        android:textAlignment = "textEnd"
-                        android:id = "@+id/midi_device_out_txtvw"
-                        android:textColor = "@android:color/white"
-                        app:layout_constraintBaseline_toBaselineOf = "parent"
-                        app:layout_constraintStart_toEndOf = "@+id/midi_device_in_txtvw"
-                        android:layout_marginEnd = "16dp"
-                        app:layout_constraintEnd_toEndOf = "parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+        </LinearLayout>
