@@ -131,42 +131,31 @@ public class MainActivity extends AppCompatActivity {
         bank_id_txtvw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MatriboxIIPro.sendPresetSync_on();
-                MatriboxIIPro.sendPresetBpm(bpm);
-                Snackbar.make(v, "Tempo set to " + bpm + " bpm", Snackbar.LENGTH_SHORT).show();
+                sendBpm(v);
             }
         });
         del_loop_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MatriboxIIPro.sendLoop_delete();
-                Snackbar.make(v, "Loop deleted", Snackbar.LENGTH_SHORT).show();
-//                Toast.makeText(getApplicationContext(), "Loop deleted", Toast.LENGTH_SHORT).show();
+                sendDeleteLoop(v);
             }
         });
         prev_preset_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MatriboxIIPro.sendBankPrevWaitMode();
-                Snackbar.make(v, "prev preset", Snackbar.LENGTH_SHORT).show();
-//                Toast.makeText(getApplicationContext(), "prev preset", Toast.LENGTH_SHORT).show();
-//                MatriboxIIPro.sendPresetSync_off();
+                sendBankPrevWaitMode(v);
             }
         });
         next_preset_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MatriboxIIPro.sendBankNextWaitMode();
-                Snackbar.make(v, "next preset", Snackbar.LENGTH_SHORT).show();
-//                Toast.makeText(getApplicationContext(), "next preset", Toast.LENGTH_SHORT).show();
+                sendBankNextWaitMode(v);
             }
         });
         tap_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MatriboxIIPro.sendTap();
-                Snackbar.make(v, "tap", Snackbar.LENGTH_SHORT).show();
-//                Toast.makeText(getApplicationContext(), "tap", Toast.LENGTH_SHORT).show();
+                sendTap(v);
             }
         });
         midi_imgbtn.setOnClickListener(new View.OnClickListener() {
@@ -181,91 +170,30 @@ public class MainActivity extends AppCompatActivity {
                 updateMidiDevice(v);
             }
         });
-
         looper_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (is_looper_menu_activated) {
-                    MatriboxIIPro.sendActivateLooperMenu();
-                    looper_imgbtn.setImageResource(R.drawable.looper_menu_off);
-                    is_looper_menu_activated = false;
-                    Snackbar.make(v, "Looper menu off", Snackbar.LENGTH_SHORT).show();
-//                    Toast.makeText(getApplicationContext(), "Looper menu off", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    MatriboxIIPro.sendDeactivateLooperMenu();
-                    looper_imgbtn.setImageResource(R.drawable.looper_menu_on);
-                    is_looper_menu_activated = true;
-                    drum_imgbtn.setImageResource(R.drawable.drum_menu_off);
-                    is_drum_menu_activated = false;
-                    Snackbar.make(v, "Looper menu on", Snackbar.LENGTH_SHORT).show();
-//                    Toast.makeText(getApplicationContext(), "Looper menu on", Toast.LENGTH_SHORT).show();
-                }
+                togleLooperScreen(v);
             }
         });
-
         play_drum_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (is_drum_play_activated) {
-                    MatriboxIIPro.sendDrumPlay_On();
-                    play_drum_imgbtn.setImageResource(R.drawable.drum_play_off);
-                    is_drum_play_activated = false;
-                    Snackbar.make(v, "Drum play off", Snackbar.LENGTH_SHORT).show();
-//                    Toast.makeText(getApplicationContext(), "Drum play off", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    MatriboxIIPro.sendDrumPlay_Off();
-                    play_drum_imgbtn.setImageResource(R.drawable.drum_play_on);
-                    is_drum_play_activated = true;
-                    Snackbar.make(v, "Drum play on", Snackbar.LENGTH_SHORT).show();
-//                    Toast.makeText(getApplicationContext(), "Drum play on", Toast.LENGTH_SHORT).show();
-                }
+                togleDrumPlaying(v);
             }
         });
-
         looper_play_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (is_looper_play_activated) {
-                    MatriboxIIPro.sendLooperPlay_Off();
-                    looper_play_imgbtn.setImageResource(R.drawable.looper_play_off);
-                    is_looper_play_activated = false;
-//                    Toast.makeText(getApplicationContext(), "Looper play off", Toast.LENGTH_SHORT).show();
-                    Snackbar.make(v, "Looper play off", Snackbar.LENGTH_SHORT).show();
-                }
-                else{
-                    MatriboxIIPro.sendLooperPlay_On();
-                    looper_play_imgbtn.setImageResource(R.drawable.looper_play_on);
-                    is_looper_play_activated = true;
-                    Snackbar.make(v, "Looper play on", Snackbar.LENGTH_SHORT).show();
-//                    Toast.makeText(getApplicationContext(), "Looper play on", Toast.LENGTH_SHORT).show();
-                }
+                togleLoopPlaying(v);
             }
         });
-
         drum_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (is_drum_menu_activated) {
-                    MatriboxIIPro.sendDeactivateDrumMenu();
-                    drum_imgbtn.setImageResource(R.drawable.drum_menu_off);
-                    is_drum_menu_activated = false;
-                    Snackbar.make(v, "Drum menu off", Snackbar.LENGTH_SHORT).show();
-//                    Toast.makeText(getApplicationContext(), "Drum menu off", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    MatriboxIIPro.sendActivateDrumMenu();
-                    drum_imgbtn.setImageResource(R.drawable.drum_menu_on);
-                    is_drum_menu_activated = true;
-                    looper_imgbtn.setImageResource(R.drawable.looper_menu_off);
-                    is_looper_menu_activated = false;
-                    Snackbar.make(v, "Drum menu on", Snackbar.LENGTH_SHORT).show();
-//                    Toast.makeText(getApplicationContext(), "Drum menu on", Toast.LENGTH_SHORT).show();
-                }
+                togleDrumScreen(v);
             }
         });
-
         knob1_sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -326,6 +254,102 @@ public class MainActivity extends AppCompatActivity {
         // Rendre l'écran toujours allumé tant que cette activité est visible
         View view = findViewById(R.id.main); // Remplacez par l'ID de votre vue
         view.setKeepScreenOn(true);
+    }
+
+    public void sendBpm(View v){
+        MatriboxIIPro.sendPresetSync_on();
+        MatriboxIIPro.sendPresetBpm(bpm);
+        Snackbar.make(v, "Tempo set to " + bpm + " bpm", Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void sendDeleteLoop(View v){
+        MatriboxIIPro.sendLoop_delete();
+        Snackbar.make(v, "Loop deleted", Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void sendBankPrevWaitMode(View v){
+        MatriboxIIPro.sendBankPrevWaitMode();
+        Snackbar.make(v, "prev preset", Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void sendBankNextWaitMode(View v){
+        MatriboxIIPro.sendBankNextWaitMode();
+        Snackbar.make(v, "next preset", Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void sendTap(View v){
+        MatriboxIIPro.sendTap();
+        Snackbar.make(v, "tap", Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void togleLoopPlaying(View v){
+        if (is_looper_play_activated) {
+            MatriboxIIPro.sendLooperPlay_Off();
+            looper_play_imgbtn.setImageResource(R.drawable.looper_play_off);
+            is_looper_play_activated = false;
+//                    Toast.makeText(getApplicationContext(), "Looper play off", Toast.LENGTH_SHORT).show();
+            Snackbar.make(v, "Looper play off", Snackbar.LENGTH_SHORT).show();
+        }
+        else{
+            MatriboxIIPro.sendLooperPlay_On();
+            looper_play_imgbtn.setImageResource(R.drawable.looper_play_on);
+            is_looper_play_activated = true;
+            Snackbar.make(v, "Looper play on", Snackbar.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Looper play on", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void togleDrumScreen(View v){
+        if (is_drum_menu_activated) {
+            MatriboxIIPro.sendDeactivateDrumMenu();
+            drum_imgbtn.setImageResource(R.drawable.drum_menu_off);
+            is_drum_menu_activated = false;
+            Snackbar.make(v, "Drum menu off", Snackbar.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Drum menu off", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            MatriboxIIPro.sendActivateDrumMenu();
+            drum_imgbtn.setImageResource(R.drawable.drum_menu_on);
+            is_drum_menu_activated = true;
+            looper_imgbtn.setImageResource(R.drawable.looper_menu_off);
+            is_looper_menu_activated = false;
+            Snackbar.make(v, "Drum menu on", Snackbar.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Drum menu on", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    public void togleDrumPlaying(View v){
+        if (is_drum_play_activated) {
+            MatriboxIIPro.sendDrumPlay_On();
+            play_drum_imgbtn.setImageResource(R.drawable.drum_play_off);
+            is_drum_play_activated = false;
+            Snackbar.make(v, "Drum play off", Snackbar.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Drum play off", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            MatriboxIIPro.sendDrumPlay_Off();
+            play_drum_imgbtn.setImageResource(R.drawable.drum_play_on);
+            is_drum_play_activated = true;
+            Snackbar.make(v, "Drum play on", Snackbar.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Drum play on", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    public void togleLooperScreen(View v){
+        if (is_looper_menu_activated) {
+            MatriboxIIPro.sendActivateLooperMenu();
+            looper_imgbtn.setImageResource(R.drawable.looper_menu_off);
+            is_looper_menu_activated = false;
+            Snackbar.make(v, "Looper menu off", Snackbar.LENGTH_SHORT).show();
+        }
+        else{
+            MatriboxIIPro.sendDeactivateLooperMenu();
+            looper_imgbtn.setImageResource(R.drawable.looper_menu_on);
+            is_looper_menu_activated = true;
+            drum_imgbtn.setImageResource(R.drawable.drum_menu_off);
+            is_drum_menu_activated = false;
+            Snackbar.make(v, "Looper menu on", Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     @Override
