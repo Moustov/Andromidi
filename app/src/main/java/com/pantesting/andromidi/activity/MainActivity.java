@@ -323,6 +323,17 @@ public class MainActivity extends AppCompatActivity {
             this.midiThread = new MidiCCListenerThread(this.getApplicationContext(), MatriboxIIPro.my_device, this.song_txtvw, this.bank_id_txtvw);
             this.midiThread.start();
         }
+        // Rendre l'écran toujours allumé tant que cette activité est visible
+        View view = findViewById(R.id.main); // Remplacez par l'ID de votre vue
+        view.setKeepScreenOn(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Optionnel : pour s'assurer que le comportement est réinitialisé
+        View view = findViewById(R.id.main);
+        view.setKeepScreenOn(false);
     }
 
     public void updateMidiDevice(View v){
