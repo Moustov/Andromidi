@@ -49,8 +49,8 @@
       "song": "Suspicious mind",
       "bank_id" : 37,
       "bpm" : 116,
-      "ctrl1": "-",
-      "ctrl2": "-",
+      "ctrl1": "SUSPICIOUS RY",
+      "ctrl2": "SUSPICIOUS CUIVR",
       "ctrl3": "-",
       "ctrl4": "-"
     },
@@ -67,8 +67,8 @@
       "song": "Mind of a junkie",
       "bank_id" : 38,
       "bpm" : 112,
-      "ctrl1": "-",
-      "ctrl2": "-",
+      "ctrl1": "MOJ RY",
+      "ctrl2": "MOJ CHORUS",
       "ctrl3": "-",
       "ctrl4": "-"
     },
