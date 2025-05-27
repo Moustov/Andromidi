@@ -31,9 +31,10 @@ public class SongAdapter extends ArrayAdapter<Song> {
         TextView ctrl2TextView = convertView.findViewById(R.id.ctrl2_tvi);
         TextView ctrl3TextView = convertView.findViewById(R.id.ctrl3_tvi);
         TextView ctrl4TextView = convertView.findViewById(R.id.ctrl4_tvi);
+        TextView bpmTextView = convertView.findViewById(R.id.bpm_tvi);
 
         Song item = this.songs.get(position);
-        songTextView.setText(item.getSong().toUpperCase());
+        songTextView.setText(item.getSong().toUpperCase() + " (#" + item.getBankId() + ")");
         if (position % 2 == 0) {
             songTextView.setBackgroundColor(0x00C5FF8F);
         }
@@ -44,7 +45,7 @@ public class SongAdapter extends ArrayAdapter<Song> {
         ctrl2TextView.setText(item.getCtrl2());
         ctrl3TextView.setText(item.getCtrl3());
         ctrl4TextView.setText(item.getCtrl4());
-
+        bpmTextView.setText(item.getBpm() + " bpm");
         return convertView;
     }
 }

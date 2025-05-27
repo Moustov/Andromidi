@@ -61,5 +61,14 @@
             app:layout_constraintEnd_toEndOf = "parent"
             app:layout_constraintStart_toStartOf = "parent"
             app:layout_constraintBottom_toBottomOf = "parent"/>
+    <TextView
+        android:text = "TextView"
+        android:layout_width = "47dp"
+        android:layout_height = "34dp"
+        app:layout_constraintTop_toTopOf = "parent"
+        app:layout_constraintBottom_toBottomOf = "parent"
+        android:id = "@+id/bpm_tvi"
+        app:layout_constraintVertical_bias = "0.723"
+        app:layout_constraintStart_toStartOf = "parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

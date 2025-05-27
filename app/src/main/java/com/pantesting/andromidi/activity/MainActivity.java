@@ -36,21 +36,24 @@ public class MainActivity extends AppCompatActivity {
 //    private TextView version_txtvw;
     private MidiCCListenerThread midiThread;
     private int previous_bank_id = 0;
+    private int new_bank_id = 0;
+    private String song_title = "";
+    private int bpm = 0;
     private final ActivityResultLauncher<Intent> resultLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     result -> {
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             Intent data = result.getData();
                             if (data != null) {
-                                int new_bank_id = data.getIntExtra("RESULT_SELECTED_SONG_BANK_ID", 0);
-                                String song_title = data.getStringExtra("RESULT_SELECTED_SONG_TITLE");
-                                int bpm = data.getIntExtra("RESULT_SELECTED_SONG_BPM", 0);
+                                new_bank_id = data.getIntExtra("RESULT_SELECTED_SONG_BANK_ID", 0);
+                                song_title = data.getStringExtra("RESULT_SELECTED_SONG_TITLE");
+                                bpm = data.getIntExtra("RESULT_SELECTED_SONG_BPM", 0);
                                 song_txtvw.setText(song_title);
-                                bank_id_txtvw.setText("" + new_bank_id);
+
+                                bank_id_txtvw.setText("" + new_bank_id + " - (" + bpm + " bpm)");
                                 Log.d("MainActivity", "new_bank_id : " + new_bank_id);
                                 Log.d("MainActivity", "song_title : " + song_title);
                                 Log.d("MainActivity", "bpm : " + bpm);
-                                MatriboxIIPro.sendPresetBpm(bpm);
                                 for (int i=0 ; i<(previous_bank_id-1) ; i++){
                                     MatriboxIIPro.sendBankPrevWaitMode();
                                     try {
@@ -123,6 +126,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openSongsActivity();
+            }
+        });
+        bank_id_txtvw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MatriboxIIPro.sendPresetSync_on();
+                MatriboxIIPro.sendPresetBpm(bpm);
+                Snackbar.make(v, "Tempo set to " + bpm + " bpm", Snackbar.LENGTH_SHORT).show();
             }
         });
         del_loop_imgbtn.setOnClickListener(new View.OnClickListener() {

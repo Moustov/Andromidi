@@ -312,7 +312,7 @@
                 <TextView
                         android:layout_width = "48dp"
                         android:layout_height = "34dp"
-                        android:text = "Andromidi v55"
+                        android:text = "Andromidi v62"
                         android:textAlignment = "textEnd"
                         android:id = "@+id/andromidi_version_txtvw"
                         android:layout_margin = "16dp"

@@ -82,7 +82,7 @@ public class MatriboxIIPro extends Midi {
         }
         else if (128<= bpm && bpm <=255) {
             MatriboxIIPro.sendControlChange(1, 68, 1);
-            MatriboxIIPro.sendControlChange(1, 69, 128 - bpm);
+            MatriboxIIPro.sendControlChange(1, 69, bpm - 128);
         }
         else if (256<= bpm && bpm <=300) {
             MatriboxIIPro.sendControlChange(1, 68, 0);
