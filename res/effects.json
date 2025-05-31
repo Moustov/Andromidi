@@ -76,8 +76,8 @@
       "song": "Barbès",
       "bank_id" : 39,
       "bpm" : 88,
-      "ctrl1": "-",
-      "ctrl2": "-",
+      "ctrl1": "BARBES CHORUS",
+      "ctrl2": "BARBES VERSE",
       "ctrl3": "-",
       "ctrl4": "-"
     },
@@ -85,7 +85,7 @@
       "song": "Au coeur de la nuit",
       "bank_id" : 40,
       "bpm" : 160,
-      "ctrl1": "-",
+      "ctrl1": "ACDLN RY",
       "ctrl2": "-",
       "ctrl3": "-",
       "ctrl4": "-"
