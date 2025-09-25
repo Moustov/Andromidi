@@ -84,7 +84,7 @@
                     android:layout_columnWeight = "1"
                     android:background = "@color/white"/>
             <ImageButton
-                    app:srcCompat = "@mipmap/prev_preset"
+                    app:srcCompat = "@mipmap/prev_10_preset"
                     android:id = "@+id/prev_preset_imgbtn"
                     android:contentDescription = "sets the previous effect"
                     android:layout_width = "0dp"
@@ -104,7 +104,7 @@
             <ImageButton
                     android:contentDescription = "sets the next effect"
                     android:id = "@+id/next_preset_imgbtn"
-                    app:srcCompat = "@mipmap/next_preset"
+                    app:srcCompat = "@mipmap/next_10_preset"
                     android:layout_width = "0dp"
                     android:layout_height = "0dp"
                     android:layout_margin = "16dp"
@@ -312,7 +312,7 @@
                 <TextView
                         android:layout_width = "48dp"
                         android:layout_height = "34dp"
-                        android:text = "Andromidi v63"
+                        android:text = "Andromidi v65"
                         android:textAlignment = "textEnd"
                         android:id = "@+id/andromidi_version_txtvw"
                         android:layout_margin = "16dp"

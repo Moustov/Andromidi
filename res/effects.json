@@ -1,6 +1,24 @@
 {
   "songs": [
     {
+      "song": "init",
+      "bank_id" : 100,
+      "bpm" : 60,
+      "ctrl1": "init",
+      "ctrl2": "-",
+      "ctrl3": "-",
+      "ctrl4": "-"
+    },
+    {
+      "song": "presets",
+      "bank_id" : 60,
+      "bpm" : 600,
+      "ctrl1": "clean",
+      "ctrl2": "boost",
+      "ctrl3": "Ooooverdrive",
+      "ctrl4": "tremolo"
+    },
+    {
       "song": "Molly's chamber",
       "bank_id" : 31,
       "bpm" : 150,
@@ -67,8 +85,8 @@
       "song": "Mind of a junkie",
       "bank_id" : 38,
       "bpm" : 112,
-      "ctrl1": "MOJ RY",
-      "ctrl2": "MOJ CHORUS",
+      "ctrl1": "MOJunkie RY",
+      "ctrl2": "MOJunkie CHORUS",
       "ctrl3": "-",
       "ctrl4": "-"
     },
@@ -94,8 +112,17 @@
       "song": "Maybe tomorrow",
       "bank_id" : 41,
       "bpm" : 82,
-      "ctrl1": "-",
-      "ctrl2": "-",
+      "ctrl1": "MB tomorrow RYT",
+      "ctrl2": "MB tomorrow trem",
+      "ctrl3": "-",
+      "ctrl4": "-"
+    },
+    {
+      "song": "Je veux nager",
+      "bank_id" : 42,
+      "bpm" : 100,
+      "ctrl1": "JEVEUXNAGER INTR",
+      "ctrl2": "JEVEUXNAGER RYT",
       "ctrl3": "-",
       "ctrl4": "-"
     }

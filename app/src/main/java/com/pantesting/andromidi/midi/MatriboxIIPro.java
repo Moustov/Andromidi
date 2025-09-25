@@ -4,9 +4,7 @@ import android.content.Context;
 import android.media.midi.MidiDeviceInfo;
 import android.media.midi.MidiManager;
 import android.util.Log;
-import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
-import com.pantesting.andromidi.activity.MainActivity;
 
 import java.util.List;
 import java.util.Set;

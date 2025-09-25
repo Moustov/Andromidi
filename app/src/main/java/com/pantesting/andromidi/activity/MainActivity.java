@@ -143,13 +143,13 @@ public class MainActivity extends AppCompatActivity {
         prev_preset_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendBankPrevWaitMode(v);
+                sendBankPrev10WaitMode(v);
             }
         });
         next_preset_imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendBankNextWaitMode(v);
+                sendBankNext10WaitMode(v);
             }
         });
         tap_imgbtn.setOnClickListener(new View.OnClickListener() {
@@ -267,14 +267,28 @@ public class MainActivity extends AppCompatActivity {
         Snackbar.make(v, "Loop deleted", Snackbar.LENGTH_SHORT).show();
     }
 
-    public void sendBankPrevWaitMode(View v){
-        MatriboxIIPro.sendBankPrevWaitMode();
-        Snackbar.make(v, "prev preset", Snackbar.LENGTH_SHORT).show();
+    public void sendBankPrev10WaitMode(View v){
+        for(int i=0 ; i<10 ; i++) {
+            MatriboxIIPro.sendBankPrevWaitMode();
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Snackbar.make(v, "prev 10 presets", Snackbar.LENGTH_SHORT).show();
     }
 
-    public void sendBankNextWaitMode(View v){
-        MatriboxIIPro.sendBankNextWaitMode();
-        Snackbar.make(v, "next preset", Snackbar.LENGTH_SHORT).show();
+    public void sendBankNext10WaitMode(View v){
+        for(int i=0 ; i<10 ; i++) {
+            MatriboxIIPro.sendBankNextWaitMode();
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Snackbar.make(v, "next 10 presets", Snackbar.LENGTH_SHORT).show();
     }
 
     public void sendTap(View v){
