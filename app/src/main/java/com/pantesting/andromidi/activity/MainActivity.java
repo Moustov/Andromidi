@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         this.knob3_sb = findViewById(R.id.seekBar3);
         this.volume_preset_sb = findViewById(R.id.volume_preset);
         this.version_txtvw = findViewById(R.id.andromidi_version_txtvw);
-        this.version_txtvw.setText("v1.0.4 - Automated Compile - " + System.currentTimeMillis());
+        this.version_txtvw.setText("v1.0.6 - Ready State - " + System.currentTimeMillis());
         this.is_looper_menu_activated = false;
         this.is_drum_menu_activated = false;
         this.is_looper_play_activated = false;
@@ -251,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
         if (MatriboxIIPro.my_device != null) {
             this.midiThread = new MidiCCListenerThread(this.getApplicationContext(), MatriboxIIPro.my_device, this.song_txtvw, null);
             this.midiThread.start();
+            this.song_txtvw.setText("Ready");
         }
         // Rendre l'écran toujours allumé tant que cette activité est visible
         View view = findViewById(R.id.main); // Remplacez par l'ID de votre vue
