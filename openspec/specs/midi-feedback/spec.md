@@ -6,11 +6,11 @@ Enables the application to listen for and react to status messages or feedback s
 ## Requirements
 
 ### Requirement: REQ-MIDI/FEEDBACK/001 Receive Device State
-The system SHALL continuously listen for and parse incoming MIDI status messages sent by the Matribox II Pro device.
+The system SHALL continuously listen for, parse, and decode incoming MIDI status messages and SysEx frames sent by the Matribox II Pro device using nibble re-assembly and preset state mapping.
 
 #### Scenario: Update Preset Display on Change
-- **WHEN** the hardware sent a preset change notification
-- **THEN** the UI updates to show the new current preset ID
+- **WHEN** the hardware sends a preset change notification SysEx frame
+- **THEN** the system decodes the absolute preset index and updates the UI to show the correctly formatted bank and sub-preset (e.g., "09-A")
 
 #### Scenario: Update BPM Display
 - **WHEN** the hardware sends a tempo/BPM update message
