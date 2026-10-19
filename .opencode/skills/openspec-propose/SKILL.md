@@ -1,14 +1,19 @@
 ---
 name: openspec-propose
-description: Propose a new change with all artifacts generated in one step. Use when the user wants to quickly describe what they want to build and get a complete proposal with design, specs, and tasks ready for implementation.
+description: Propose a new change (MAT-1.1) with all artifacts generated in one step and conditional mandatory stop on spec refactoring (`[SPLIT]` / `[PROMOTE]`).
 allowed-tools: Bash(openspec:*)
 license: MIT
 compatibility: Requires openspec CLI.
 metadata:
   author: openspec
-  version: "1.0"
+  version: "MAT-1.1"
   generatedBy: "1.11.0"
 ---
+
+**Governance & Workflow Structure (MAT-1.1)**: This workflow enforces a **2-phase process**:
+- **Phase 1: Specs & Refactoring**: Generate/refactor specifications, enforcing modularity rules (max depth 4, max 50 specs per sub-domain, TUI arbitration `[SPLIT]` / `[PROMOTE]`, and SRP validation).
+- **Conditional MANDATORY STOP**: At the end of Phase 1, present the spec refactoring summary and **stop** **only if** at least one specification group has been generated or refactored (involving `[SPLIT]` or `[PROMOTE]` TUI arbitration). If no refactoring or splitting occurs, Phase 1 proceeds automatically to Phase 2.
+- **Phase 2: Code Implementation**: Transition to code implementation.
 
 Propose a new change - create the change and generate all artifacts in one step.
 
@@ -34,12 +39,14 @@ When the user is ready to implement, they must start the apply workflow explicit
 
 1. **Understand the request and clarify material ambiguity**
 
-   If no clear input is provided, ask the user (open-ended, no preset options):
+   If no input is provided, ask the user (open-ended, no preset options):
    > "What change do you want to work on? Describe what you want to build or fix."
 
    From their description, derive a kebab-case name (e.g., "add user authentication" → `add-user-auth`).
 
    **IMPORTANT**: Do NOT proceed without understanding what the user wants to build.
+
+   *Authoring Note*: When a new capability spec is created, you MUST also add its `fr-FR` purpose entry to `src/mat-user-manual/i18n.js` in the same change. If the change introduces a new `/mat-*` command, you MUST also add its `usecases.commands` entry to that file.
 
    If the request contains ambiguity that would materially affect scope, externally observable behavior, compatibility, or acceptance criteria, ask the user before creating the change. For minor details, make a reasonable assumption and record it in the planning artifacts.
 
@@ -132,6 +139,7 @@ After completing all artifacts, summarize:
 **Artifact Creation Guidelines**
 
 - Follow the `instruction` field from `openspec instructions` for each artifact type - it is the authoritative guidance, even for familiar artifact names
+- Ensure every generated scenario in specification files (`specs/**/*.md`) includes a unique structured identifier (e.g. `[<requirement-id>-SC<nn>]`) in its heading or definition per `REQ-CMD/PROPOSE/004`.
 - If the `instruction` field directs you to use a specific skill or command to create the artifact, invoke it instead of writing the artifact directly
 - The schema defines what each artifact should contain - follow it
 - Read dependency artifacts for context before creating new ones

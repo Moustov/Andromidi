@@ -2,3 +2,5 @@
 /build/
 /out/
 /.gradle/
+/.myagenticteam-*/
+.opencode/finops-vsm/vsm_metrics.jsonl
