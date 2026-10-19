@@ -6,11 +6,11 @@ Defines the requirements for interacting with external MIDI hardware, specifical
 ## Requirements
 
 ### Requirement: [REQ-MIDI/CONTROL/001] MIDI Device Connection
-The system SHALL establish a connection to a compatible MIDI device (MatriboxIIPro) upon application startup.
+The system SHALL establish a connection to a compatible MIDI device (MatriboxIIPro) upon application startup, supporting both outgoing control messages and incoming status updates.
 
 #### Scenario: [REQ-MIDI/CONTROL/001-SC01] Device Connection Success
 - **WHEN** application starts
-- **THEN** it identifies and connects to the MatriboxIIPro device, displaying connection info.
+- **THEN** it identifies and connects to the MatriboxIIPro device, enabling both input and output ports for bidirectional communication.
 
 ### Requirement: [REQ-MIDI/CONTROL/002] Preset Control
 The system SHALL allow users to navigate through presets and control preset volume.

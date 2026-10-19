@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         this.knob3_sb = findViewById(R.id.seekBar3);
         this.volume_preset_sb = findViewById(R.id.volume_preset);
         this.version_txtvw = findViewById(R.id.andromidi_version_txtvw);
-        this.version_txtvw.setText("v1.0.1 - USB Listener Active");
+        this.version_txtvw.setText("v1.0.3 - USB Listener Active - " + System.currentTimeMillis());
         this.is_looper_menu_activated = false;
         this.is_drum_menu_activated = false;
         this.is_looper_play_activated = false;

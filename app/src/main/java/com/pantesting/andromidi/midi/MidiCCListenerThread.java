@@ -56,20 +56,41 @@ public class MidiCCListenerThread extends Thread {
                             int status = data[idx] & 0xFF;
 
                             if (status == 0xF0) { // Début SysEx
-                                StringBuilder sb = new StringBuilder("SysEx: ");
-                                while (idx < end && data[idx] != (byte)0xF7) {
-                                    sb.append(String.format("%02X ", data[idx]));
-                                    idx++;
+                                if (count > 7) {
+                                    // Extraction : On ignore le header (7 octets) et on décode le reste par nibbles
+                                    // La doc dit: Header(7) + TaskID(1) + Flag(1) + v1(2) + v2(2) + CmdCode(4) + dataLen(4) + Data
+                                    // Dans les logs, nous avons F0 21 25 4D 50 00 00 [1A/1B] [00] [14 00 00 00] [00 00 00 0C]
+                                    // La donnée utile commence probablement après ces octets
+                                    int payloadStart = 7;
+                                    byte[] rawPayload = new byte[count - payloadStart - 1]; // -1 pour F7
+                                    System.arraycopy(data, offset + payloadStart, rawPayload, 0, rawPayload.length);
+                                    
+                                    // Recombinaison des demi-octets (NIBBLES)
+                                    byte[] decoded = new byte[rawPayload.length / 2];
+                                    for (int i = 0; i < decoded.length; i++) {
+                                        decoded[i] = (byte) ((rawPayload[i * 2] << 4) | (rawPayload[i * 2 + 1] & 0x0F));
+                                    }
+                                    
+                                    // Debug: Afficher tout le payload brut pour analyse
+                                    StringBuilder sb = new StringBuilder("RawDecoded: ");
+                                    for (byte b : decoded) {
+                                        sb.append(String.format("%02X ", b));
+                                    }
+                                    Log.i("MIDI_DEBUG_RAW", sb.toString());
+                                    
+                                    // Extraction exacte basée sur le code officiel (HTModelPresetControl.dart)
+                                    int absoluteIndex = (decoded.length > 16) ? (decoded[16] & 0xFF) : 0;
+                                    int tens = (absoluteIndex / 4) + 1;
+                                    char presetLetter = (char) ('A' + (absoluteIndex % 4));
+                                    
+                                    String displayMsg = String.format("%02d-%s", tens, presetLetter);
+                                    Log.i("MIDI_DECODED", displayMsg);
+                                    
+                                    if (usb_in_message_txvw != null) {
+                                        uiHandler.post(() -> usb_in_message_txvw.setText(displayMsg));
+                                    }
                                 }
-                                if (idx < end) sb.append(String.format("%02X ", data[idx])); // Append F7
-                                
-                                String fullMsg = sb.toString();
-                                Log.i("MIDI", fullMsg);
-                                
-                                if (usb_in_message_txvw != null) {
-                                    uiHandler.post(() -> usb_in_message_txvw.setText(fullMsg));
-                                }
-                                idx++; // Move past F7
+                                idx = end;
                             } else if ((status & 0xF0) == 0xB0 && idx + 2 < end) { // Control Change
                                 int controller = data[idx + 1] & 0x7F;
                                 int value = data[idx + 2] & 0x7F;
