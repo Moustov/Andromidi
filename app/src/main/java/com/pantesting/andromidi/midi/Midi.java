@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.midi.*;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
@@ -42,8 +43,11 @@ public class Midi {
         MidiManager midiManager = (MidiManager) Midi.mContext.getSystemService(MIDI_SERVICE);
         midiManager.openDevice(info, device -> {
             midiDevice = device;
+            // Ouvrir le port d'entrée pour écouter les messages venant du device
             inputPort = midiDevice.openInputPort(0);
-            outputPort = midiDevice.openOutputPort(1);
+            // Ouvrir le port de sortie pour envoyer des messages vers le device
+            outputPort = midiDevice.openOutputPort(0); // Test du port 0
+            Log.d("MIDI", "Port input ouvert: " + inputPort + ", Port output ouvert: " + outputPort);
         }, null);
     }
 

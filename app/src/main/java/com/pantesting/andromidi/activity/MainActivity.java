@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Boolean is_looper_play_activated;
     private Boolean is_drum_play_activated;
     private TextView midi_device_txtvw;
-//    private TextView version_txtvw;
+    private TextView version_txtvw;
     private MidiCCListenerThread midiThread;
     private int previous_bank_id = 0;
     private int new_bank_id = 0;
@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
         this.knob2_sb = findViewById(R.id.seekBar2);
         this.knob3_sb = findViewById(R.id.seekBar3);
         this.volume_preset_sb = findViewById(R.id.volume_preset);
-//        this.version_txtvw = findViewById(R.id.andromidi_version_txtvw);
-//        this.version_txtvw.setText(BuildConfig.VERSION_NAME);
+        this.version_txtvw = findViewById(R.id.andromidi_version_txtvw);
+        this.version_txtvw.setText("v1.0.1 - USB Listener Active");
         this.is_looper_menu_activated = false;
         this.is_drum_menu_activated = false;
         this.is_looper_play_activated = false;
@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
         });
         // deviceInfo est ton MidiDeviceInfo ciblé
         if (MatriboxIIPro.my_device != null) {
-            this.midiThread = new MidiCCListenerThread(this.getApplicationContext(), MatriboxIIPro.my_device, this.song_txtvw, this.bank_id_txtvw);
+            this.midiThread = new MidiCCListenerThread(this.getApplicationContext(), MatriboxIIPro.my_device, this.song_txtvw, null);
             this.midiThread.start();
         }
         // Rendre l'écran toujours allumé tant que cette activité est visible

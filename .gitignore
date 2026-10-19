@@ -4,3 +4,4 @@
 /.gradle/
 /.myagenticteam-*/
 .opencode/finops-vsm/vsm_metrics.jsonl
+/myagenticteam-*.zip
