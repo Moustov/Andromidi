@@ -94,12 +94,7 @@ public class MidiCCListenerThread extends Thread {
                                     int tens = (absoluteIndex / 4) + 1;
                                     char presetLetter = (char) ('A' + (absoluteIndex % 4));
                                     
-                                    String presetName = "";
-                                    if (decoded.length >= 33) {
-                                        byte[] nameBytes = new byte[16];
-                                        System.arraycopy(decoded, 17, nameBytes, 0, 16);
-                                        presetName = new String(nameBytes).trim();
-                                    }
+                                    String presetName = MatriboxIIPro.presetNames.getOrDefault(absoluteIndex, "");
 
                                     String displayMsg = String.format("%02d-%s %s", tens, presetLetter, presetName).trim();
                                     Log.i("MIDI_DECODED", displayMsg);

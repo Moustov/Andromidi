@@ -6,7 +6,9 @@ import android.media.midi.MidiManager;
 import android.util.Log;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -21,6 +23,7 @@ public class MatriboxIIPro extends Midi {
     public static byte[] matribox_device_sysex_id = {(byte) 0x21, (byte) 0x25, (byte) 0x4d, (byte) 0x50};
     public static Context my_context = null;
     protected static MidiManager midiManager = null;
+    public static Map<Integer, String> presetNames = new HashMap<>();
 
 
 //    public MatriboxIIPro(Context a_context, TextView usb_in, TextView usb_out) {
@@ -329,6 +332,16 @@ public class MatriboxIIPro extends Midi {
         // Trame capturée ou construite pour demander la liste des presets (PRESET_LIST)
         byte[] cmd = {0x0, 0x0, 0x10, 0x11, 0x10, 0x0, 0x0, 0x0, 0x0, 0x1, 0x0, 0x0, 0x0, 0x0, 0x1, 0x1, 0x0, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x01, 0x0A, 0x00};
         MatriboxIIPro.sendSysEx(MatriboxIIPro.matribox_device_sysex_id, cmd);
+    }
+
+    public static void parsePresetList(byte[] decoded) {
+        try {
+            if (decoded.length > 1000) {
+                Log.i("MIDI_CATALOG", "Preset list received, size: " + decoded.length);
+            }
+        } catch (Exception e) {
+            Log.e("MIDI", "Error parsing preset list", e);
+        }
     }
 
     public static void setEffect(int ctrl_id, String effect_name, Context my_context) throws Exception {
