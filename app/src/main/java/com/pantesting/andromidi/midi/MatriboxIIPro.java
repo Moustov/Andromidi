@@ -64,7 +64,8 @@ public class MatriboxIIPro extends Midi {
                 MatriboxIIPro.serial_number = serial_number;
                 MatriboxIIPro.connectToMidiDevice(info);
                 my_device = info;
-//                break; // On s'arrête après la première correspondance
+                // Demande de la liste des presets au démarrage pour charger les métadonnées
+                requestPresetList();
             }
         }
     }
@@ -322,6 +323,12 @@ public class MatriboxIIPro extends Midi {
         byte[] urb_bulk_in4   = {0x1b, 0x0,       0x10, (byte)0xc0, (byte)0xc1, (byte)0x89, (byte)0x82, (byte)0x84, (byte)0xff, (byte)0xff, 0x0, 0x0, 0x0, 0x0, 0x9, 0x0, 0x0, 0x2, 0x0, 0x1a, 0x0, (byte)0x83, 0x3, 0x0, 0x0, 0x0, 0x0};
         //                                         X           X           X           X                                                                                                   X
 //        MatriboxIIPro.sendURB_BULK_in(urb_bulk_in4);
+    }
+
+    public static void requestPresetList() {
+        // Trame capturée ou construite pour demander la liste des presets (PRESET_LIST)
+        byte[] cmd = {0x0, 0x0, 0x10, 0x11, 0x10, 0x0, 0x0, 0x0, 0x0, 0x1, 0x0, 0x0, 0x0, 0x0, 0x1, 0x1, 0x0, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x01, 0x0A, 0x00};
+        MatriboxIIPro.sendSysEx(MatriboxIIPro.matribox_device_sysex_id, cmd);
     }
 
     public static void setEffect(int ctrl_id, String effect_name, Context my_context) throws Exception {

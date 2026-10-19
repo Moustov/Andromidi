@@ -78,13 +78,32 @@ public class MidiCCListenerThread extends Thread {
                                     }
                                     Log.i("MIDI_DEBUG_RAW", sb.toString());
                                     
+                                    // Debug: Log raw decoded bytes as hex and ascii
+                                    StringBuilder hexSb = new StringBuilder();
+                                    StringBuilder asciiSb = new StringBuilder();
+                                    for (byte b : decoded) {
+                                        hexSb.append(String.format("%02X ", b));
+                                        char c = (char) b;
+                                        asciiSb.append((c >= 32 && c <= 126) ? c : '.');
+                                    }
+                                    Log.i("MIDI_RAW_HEX", hexSb.toString());
+                                    Log.i("MIDI_RAW_ASCII", asciiSb.toString());
+
                                     // Extraction exacte basée sur le code officiel (HTModelPresetControl.dart)
                                     int absoluteIndex = (decoded.length > 16) ? (decoded[16] & 0xFF) : 0;
                                     int tens = (absoluteIndex / 4) + 1;
                                     char presetLetter = (char) ('A' + (absoluteIndex % 4));
                                     
-                                    String displayMsg = String.format("%02d-%s", tens, presetLetter);
+                                    String presetName = "";
+                                    if (decoded.length >= 33) {
+                                        byte[] nameBytes = new byte[16];
+                                        System.arraycopy(decoded, 17, nameBytes, 0, 16);
+                                        presetName = new String(nameBytes).trim();
+                                    }
+
+                                    String displayMsg = String.format("%02d-%s %s", tens, presetLetter, presetName).trim();
                                     Log.i("MIDI_DECODED", displayMsg);
+
                                     
                                     if (usb_in_message_txvw != null) {
                                         uiHandler.post(() -> usb_in_message_txvw.setText(displayMsg));
