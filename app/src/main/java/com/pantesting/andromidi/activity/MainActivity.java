@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.midi_device_txtvw = findViewById(R.id.midi_device_txtvw);
         this.song_txtvw = findViewById(R.id.song_title_txtvw);
+        this.song_txtvw.setText("Loading presets from device...");
         this.bank_id_txtvw = findViewById(R.id.bank_id_txtvw);
         this.midi_imgbtn = findViewById(R.id.midi_imgbtn);
         this.tap_imgbtn = findViewById(R.id.tap_imgbtn);
