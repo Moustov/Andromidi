@@ -337,11 +337,48 @@ public class MatriboxIIPro extends Midi {
     public static void parsePresetList(byte[] decoded) {
         try {
             if (decoded.length > 1000) {
-                Log.i("MIDI_CATALOG", "Preset list received, size: " + decoded.length);
+                int presetNum = 240;
+                int indexLen = 4;
+                int nameSize = 17;
+                int expectedLen = (indexLen + nameSize) * presetNum; // 5040 bytes
+
+                for (int offset = 0; offset + expectedLen <= decoded.length; offset++) {
+                    int firstIndex = bytesToIntLE(decoded, offset, 4);
+                    if (firstIndex >= 0 && firstIndex < 10) {
+                        int indexDataOffset = offset;
+                        int nameDataOffset = offset + (indexLen * presetNum);
+
+                        for (int i = 0; i < presetNum; i++) {
+                            int actualIndex = bytesToIntLE(decoded, indexDataOffset + (i * indexLen), indexLen);
+                            String name = bytesToString(decoded, nameDataOffset + (i * nameSize), nameSize);
+                            if (!name.isEmpty()) {
+                                presetNames.put(actualIndex, name);
+                            }
+                        }
+                        Log.i("MIDI_CATALOG", "Successfully loaded " + presetNames.size() + " preset names into cache.");
+                        break;
+                    }
+                }
             }
         } catch (Exception e) {
             Log.e("MIDI", "Error parsing preset list", e);
         }
+    }
+
+    public static int bytesToIntLE(byte[] data, int offset, int length) {
+        int value = 0;
+        for (int i = 0; i < length && (offset + i) < data.length; i++) {
+            value |= (data[offset + i] & 0xFF) << (i * 8);
+        }
+        return value;
+    }
+
+    public static String bytesToString(byte[] data, int offset, int length) {
+        int len = 0;
+        while (len < length && (offset + len) < data.length && data[offset + len] != 0) {
+            len++;
+        }
+        return new String(data, offset, len, java.nio.charset.StandardCharsets.UTF_8).trim();
     }
 
     public static void setEffect(int ctrl_id, String effect_name, Context my_context) throws Exception {

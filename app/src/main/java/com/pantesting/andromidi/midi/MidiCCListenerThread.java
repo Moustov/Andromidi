@@ -71,6 +71,9 @@ public class MidiCCListenerThread extends Thread {
                                         decoded[i] = (byte) ((rawPayload[i * 2] << 4) | (rawPayload[i * 2 + 1] & 0x0F));
                                     }
                                     
+                                    // Tenter de parser le catalogue si c'est un paquet de liste de presets en bloc
+                                    MatriboxIIPro.parsePresetList(decoded);
+                                    
                                     // Debug: Afficher tout le payload brut pour analyse
                                     StringBuilder sb = new StringBuilder("RawDecoded: ");
                                     for (byte b : decoded) {
